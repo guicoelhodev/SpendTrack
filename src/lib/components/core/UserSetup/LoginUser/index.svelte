@@ -11,8 +11,7 @@
 <script lang="ts">
 	import DrawerLogin from "./DrawerLogin/index.svelte";
 	import { session } from '$lib/stores/session.svelte'
-
-	let showDrawer = $state(false)
+	import { application } from "$lib/stores/application.svelte";
 
 	async function onConnect(user: TUser){
 		try {
@@ -25,7 +24,7 @@
 				nickname: user.nickname
 			});
 
-			showDrawer = false
+			application.isDrawer = false
 		}catch (error) {
 			console.error(`Error to connect:`, error)
 		}
@@ -33,7 +32,7 @@
 
 	async function onDisconnect(){
 		await db.session.delete(1)
-		showDrawer = false
+		application.isDrawer = false
 	}
 
 
@@ -49,12 +48,12 @@
 	data-open={isLogged()}
 >
 
-	{#if showDrawer}
+	{#if application.isDrawer}
 		<DrawerLogin 
 			isLogged={isLogged()}
 			onDisconnect={onDisconnect}
 			onConnect={onConnect}
-			onCancel={() => showDrawer = false}
+			onCancel={() => application.isDrawer = false}
 		/>
 	{/if}
 
@@ -71,11 +70,11 @@
 	{/if}
 
 	<button
-		onclick={() => showDrawer = !showDrawer}
+		onclick={() => application.isDrawer = !application.isDrawer}
 		class="bg-background-primary p-2 rounded-full grid place-content-center"
 		aria-labelledby='logout-btn'
 	>
-	{#if showDrawer}
+	{#if application.isDrawer}
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z"/></svg>
 	{:else}
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
