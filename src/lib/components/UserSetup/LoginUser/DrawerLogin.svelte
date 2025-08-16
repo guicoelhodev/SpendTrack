@@ -56,7 +56,7 @@
 <style>
 
 	.drawer {
-		animation: show 400ms linear
+		animation: show 300ms ease-in
 	}
 
 	@keyframes show {
