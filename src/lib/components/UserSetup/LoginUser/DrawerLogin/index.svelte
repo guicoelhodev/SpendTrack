@@ -62,7 +62,6 @@
 								class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
 								class:bg-background-primary={getFocusUser(user)}
 								onclick={() => handleDrawerActions({ user })}
-								disabled={!!$session?.userId}
 							>
 							{user.name}
 						</button>

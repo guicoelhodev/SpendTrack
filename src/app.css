@@ -10,10 +10,11 @@
 
 	--color-red: var(--text-red);
 
-  --color-surface-content: var(--text-secondary);
- 	--color-primary: #000;
-  --color-surface-100: #000;
-  --color-surface-200: #000;
+  --color-surface-content: var(--text-primary);
+ 	--color-primary: var(--text-blue);
+
+  --color-surface-100: 'transparent';
+  --color-surface-200: var(--text-red);
   --color-surface-300: var(--background-secondary);
 }
 
@@ -24,7 +25,8 @@
 	--text-primary: #1C1C1C;
 	--text-secondary: #666666;
 
-	--text-red: oklch(57.7% 0.245 27.325)
+	--text-red: oklch(57.7% 0.245 27.325);
+	--text-blue: oklch(42.4% 0.199 265.638)
 }
 
 .dark {
@@ -35,6 +37,7 @@
 	--text-secondary: #A0A0A0;
 
 	--text-red: oklch(70.4% 0.191 22.216);
+	--text-blue: oklch(74.6% 0.16 232.661)
 }
 
 button {

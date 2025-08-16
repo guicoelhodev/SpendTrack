@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BarChart from "$lib/components/UI/BarChart.svelte";
 	import ChartLine from "$lib/components/UI/ChartLine.svelte";
 	import PieChart from "$lib/components/UI/PieChart.svelte";
 	import UserSetup from "$lib/components/UserSetup/index.svelte";
@@ -150,27 +151,84 @@
 			"color": "#43aa8b"
 		}
 	]
+
+const barData = [
+  {
+    "date": new Date('2025-08-06T03:00:00.000Z'),
+    "value": 47,
+    "baseline": 43
+  },
+  {
+    "date": new Date('2025-08-07T03:00:00.000Z'),
+    "value": 94,
+    "baseline": 25
+  },
+  {
+    "date": new Date('2025-08-08T03:00:00.000Z'),
+    "value": 84,
+    "baseline": 47
+  },
+  {
+    "date": new Date('2025-08-09T03:00:00.000Z'),
+    "value": 63,
+    "baseline": 31
+  },
+  {
+    "date": new Date('2025-08-10T03:00:00.000Z'),
+    "value": 29,
+    "baseline": 42
+  },
+  {
+    "date": new Date('2025-08-11T03:00:00.000Z'),
+    "value": 44,
+    "baseline": 82
+  },
+  {
+    "date": new Date('2025-08-12T03:00:00.000Z'),
+    "value": 46,
+    "baseline": 90
+  },
+  {
+    "date": new Date('2025-08-13T03:00:00.000Z'),
+    "value": 99,
+    "baseline": 99
+  },
+  {
+    "date": new Date('2025-08-14T03:00:00.000Z'),
+    "value": 91,
+    "baseline": 94
+  },
+  {
+    "date": new Date('2025-08-15T03:00:00.000Z'),
+    "value": 85,
+    "baseline": 72
+  }
+]
 </script>
 
 <div class="relative transition-colors bg-background-primary text-text-primary h-svh w-svw">
 
-	<main class="w-full h-[calc(100%-5rem)] grid grid-cols-2 gap-4">
+	<main class="w-full h-[calc(100%-5rem)] grid grid-cols-2 gap-4 p-4">
 
-		<div class="col-span-2 border flex flex-col">
+		<article class="col-span-2 border flex flex-col">
 			<ChartLine 
 				data={dateSeriesData}
 				axisName={{ x: 'date', y: 'va'}}
 				height={'500px'}
 			/>
-		</div>
+		</article>
 
 		<article class="border flex flex-col justify-center">
-				<PieChart
-					data={data} 
-					value='total'
-					key='fruit'
-					height='300px'
-				/>
+			<PieChart
+				data={data} 
+				value='total'
+				key='fruit'
+				height='300px'
+			/>
+		</article>
+
+		<article class="border">
+			<BarChart height='400px' data={barData} axisName={{ x: 'date', y: 'value'}}/>
 		</article>
 	</main>
 
