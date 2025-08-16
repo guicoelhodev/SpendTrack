@@ -25,8 +25,6 @@
 		<article class="col-span-2 flex flex-col justify-evenly border-2 border-background-secondary rounded-md">
 			<div class="p-4">
 				<p class="text-3xl font-semibold text-red">TOTAL: R$ 2350,00</p>
-
-				<button onclick={() => showModal = true } class="p-2 bg-background-secondary">ABRIR MODAL</button>
 			</div>
 
 
