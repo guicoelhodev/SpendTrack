@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChartLine from "$lib/components/UI/ChartLine.svelte";
+	import ChartLine from "$lib/components/ui/ChartLine.svelte";
 
 	const dateSeriesData = [
 		{

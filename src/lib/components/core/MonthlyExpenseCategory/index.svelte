@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PieChart from "$lib/components/UI/PieChart.svelte";
+	import PieChart from "$lib/components/ui/PieChart.svelte";
 
 	const data = [
 		{
