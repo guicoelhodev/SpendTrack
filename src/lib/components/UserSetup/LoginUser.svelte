@@ -1,15 +1,20 @@
+<script module>
+	export type TActions = {
+		isLogged: boolean;
+		showDrawer: boolean
+		currentUser: string | null
+	};
+</script>
+
 <script lang="ts">
 	import DrawerLogin from "./DrawerLogin.svelte";
 
-	type TActions = {
-		isLogged: boolean;
-		showDrawer: boolean
-	};
-
-	let actions: TActions = $state({
+	const initialState = {
 		isLogged: false,
-		showDrawer: false
-	});
+		showDrawer: true,
+		currentUser: null
+	}
+	let actions: TActions = $state(initialState);
 
 	function handleActions(partialObj: Partial<TActions>){
 		actions = Object.assign(actions, partialObj)
@@ -24,12 +29,21 @@
 >
 
 	{#if actions.showDrawer}
-		<DrawerLogin />
+		<DrawerLogin 
+			actions={actions}
+			onDisconnect={() => handleActions(initialState)}
+			onConnect={(user) => handleActions({
+				currentUser: user,
+				isLogged: true,
+				showDrawer: false
+			})}
+
+		/>
 	{/if}
 
 	{#if actions.isLogged}
 		<div class="w-64 flex flex-col">
-			<p class="text-sm text-nowrap">Signed as <b>guicoelhodev</b></p>
+			<p class="text-sm text-nowrap">Signed as <b>{actions.currentUser}</b></p>
 			<span class="text-xs text-green-500">Online</span>
 		</div>
 	{:else}
