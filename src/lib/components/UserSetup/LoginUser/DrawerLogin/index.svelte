@@ -9,9 +9,9 @@
 </script>
 
 <script lang="ts">
-	import { liveQuery } from 'dexie'
 	import CreateUser from "./CreateUser.svelte";
 	import { session } from "$lib/stores/session.svelte";
+	import { users } from "$lib/stores/users.svelte";
 
 	type TProps = {
 		isLogged: boolean
@@ -44,8 +44,6 @@
 		}
 	}
 
-	let userList = liveQuery(() => db.users.toArray());
-
 	function getFocusUser(user: TUser){
 		if(!drawerActions.user) return $session?.userId === user.id;
 		return drawerActions.user.id === user.id
@@ -57,8 +55,8 @@
 		<section class="flex flex-col gap-4">
 		<h2 class="self-center font-semibold text-lg">Select a user to sign</h2>
 		<ul class="flex flex-col gap-2">
-			{#if userList}
-				{#each $userList as user}
+			{#if users}
+				{#each $users as user}
 					<li class="w-full">
 						<button 
 								class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
@@ -73,10 +71,12 @@
 			{/if}
 		</ul>
 
-			<button
-				onclick={() => handleDrawerActions({ createNewUser: true, user: null })}
-				class="transition-colors text-text-secondary hover:underline hover:text-text-primary"
-			>create new one</button>
+		<button
+			onclick={() => handleDrawerActions({ createNewUser: true, user: null })}
+			class="transition-colors text-text-secondary hover:underline hover:text-text-primary"
+		>
+				create new one
+		</button>
 		</section>
 
 		<footer>
@@ -96,14 +96,11 @@
 
 		</footer>
 	{:else}
-		<CreateUser
-			onCreateUser={onCreateUser}
-		/>
+		<CreateUser onCreateUser={onCreateUser} />
 	{/if}
 </div>
 
 <style>
-
 	.drawer {
 		animation: show 300ms ease-in
 	}
@@ -113,4 +110,3 @@
 		to { transform: translateX(0); }
 	}
 </style>
-
