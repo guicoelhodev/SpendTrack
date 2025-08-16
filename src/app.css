@@ -6,14 +6,18 @@
 
 	--color-text-primary: var(--text-primary);
 	--color-text-secondary: var(--text-secondary);
+
+	--color-red: var(--text-red);
 }
 
 :root {
-	--background-primary: #F5F5F5;
-	--background-secondary: #E0E0E0;
+	--background-primary: oklch(98.4% 0.003 247.858);
+	--background-secondary: oklch(92.9% 0.013 255.508);
 
 	--text-primary: #1C1C1C;
 	--text-secondary: #666666;
+
+	--text-red: oklch(57.7% 0.245 27.325)
 }
 
 .dark {
@@ -22,6 +26,8 @@
 
 	--text-primary: #F5F5F5;
 	--text-secondary: #A0A0A0;
+
+	--text-red: oklch(70.4% 0.191 22.216);
 }
 
 button {

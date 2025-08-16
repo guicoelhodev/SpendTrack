@@ -1,5 +1,5 @@
 <script lang="ts">
-	import UserSetup from "$lib/components/UserSetup.svelte";
+	import UserSetup from "$lib/components/UserSetup/index.svelte";
 
 
 </script>
