@@ -5,12 +5,13 @@
     data: T[];
     axisName: { x: string; y: string };
     renderContent?: "svg" | "canvas";
+		height?: string
   };
 	const props: TProps<any> = $props();
 
 </script>
 
- <div class="h-[300px] p-4 border rounded-sm">
+ <div style={`height: ${props.height ?? '300px'}`} class="p-4 border rounded-sm">
   <LineChart
 		data={props.data}
 		x={props.axisName.x as string}
