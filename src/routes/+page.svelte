@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ChartLine from "$lib/components/UI/ChartLine.svelte";
-import UserSetup from "$lib/components/UserSetup/index.svelte";
+	import PieChart from "$lib/components/UI/PieChart.svelte";
+	import UserSetup from "$lib/components/UserSetup/index.svelte";
 
 	const dateSeriesData = [
 		{
@@ -124,21 +125,54 @@ import UserSetup from "$lib/components/UserSetup/index.svelte";
 			"va": 60
 		}
 	]
+
+
+	const data = [
+		{
+			"year": 2019,
+			"basket": 1,
+			"fruit": "apples",
+			"value": 3840
+		},
+		{
+			"year": 2019,
+			"basket": 1,
+			"fruit": "bananas",
+			"value": 1920
+		},
+		{
+			"year": 2019,
+			"basket": 2,
+			"fruit": "cherries",
+			"value": 960
+		},
+		{
+			"year": 2019,
+			"basket": 2,
+			"fruit": "grapes",
+			"value": 400
+		}
+	]
 </script>
 
 <div class="relative transition-colors bg-background-primary text-text-primary h-svh w-svw">
 
-	<main class="w-full h-[calc(100%-5rem)] grid grid-cols-2">
+	<main class="w-full h-[calc(100%-5rem)] grid grid-cols-2 gap-4">
 
-		<div class="col-span-2">
+		<div class="col-span-2 border">
 			<ChartLine 
 				data={dateSeriesData}
 				axisName={{ x: 'date', y: 'va'}}
-				height={'500px'}
+				height={'300px'}
 			/>
 		</div>
-		<div class="bg-background-secondary w-36 h-36">
 
+		<div class="border">
+			<PieChart
+				data={data} 
+				value='value'
+				key='fruit'
+			/>
 		</div>
 	</main>
 

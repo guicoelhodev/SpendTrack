@@ -11,6 +11,10 @@
 	--color-red: var(--text-red);
 
   --color-surface-content: var(--text-secondary);
+ 	--color-primary: #000;
+  --color-surface-100: #000;
+  --color-surface-200: #000;
+  --color-surface-300: var(--background-secondary);
 }
 
 :root {
