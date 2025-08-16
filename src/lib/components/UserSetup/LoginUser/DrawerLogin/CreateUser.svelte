@@ -19,17 +19,18 @@
 	});
 
 	let formData: TUser = $state({
-		name: '',
-		nickname: ''
+		name: 'Test name',
+		nickname: 'test_name'
 	});
 
 	let formErrors: Record<keyof TUser, string> = $state({
+		id: '',
 		name: '',
 		nickname: ''
 	})
 
 	type TCreateUserProps = {
-		onCreateUser: (newUser: TUser) => void 
+		onCreateUser: (newUser: TUser) => Promise<void> 
 	}
 
 	const props: TCreateUserProps = $props()

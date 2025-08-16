@@ -1,5 +1,6 @@
-<script module>
+<script module lang="ts">
 	import type { TUser } from "$lib/types/User";
+	import { db } from "$lib/db";
 
 	export type TDrawerActions = {
 		user: TUser | null;
@@ -9,6 +10,7 @@
 
 <script lang="ts">
 	import type { TActions } from "../index.svelte";
+	import { liveQuery } from 'dexie'
 	import CreateUser from "./CreateUser.svelte";
 
 	type TProps = {
@@ -16,7 +18,6 @@
 		onConnect: (user: TUser) => void
 		onDisconnect: VoidFunction
 	};
-
 
 	const { actions, ...props }: TProps = $props()
 
@@ -29,30 +30,40 @@
 		return drawerActions = Object.assign(drawerActions, partial)
 	}
 
-	const userList: TUser[] = $state([
-		{ nickname: 'guicoelhodev', name: 'Guilherme Coelho' },
-		{ nickname: 'jane_smith', name: 'Jane Smith' },
-		{ nickname: 'john_smith', name: 'John Smith' },
-	]);
+	async function onCreateUser(user: TUser){
+		try {
+			await db.users.add({
+				name: user.name,
+				nickname: user.nickname
+			});
+
+			return handleDrawerActions({ createNewUser: false })
+		}catch (err){
+			console.error(`Error to add user:`, err)
+		}
+	}
+
+	let userList = liveQuery(() => db.users.toArray());
 </script>
 
 <div class="drawer w-[360px] h-svh fixed top-0 right-0 bg-background-secondary p-4 flex flex-col justify-between">
-
 	{#if !drawerActions.createNewUser}
 		<section class="flex flex-col gap-4">
 		<h2 class="self-center font-semibold text-lg">Select a user to sign</h2>
 		<ul class="flex flex-col gap-2">
-			{#each userList as user}
-				<li class="w-full">
-					<button 
-							class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
-							class:bg-background-primary={drawerActions.user?.name === user.name}
-							onclick={() => handleDrawerActions({ user })}
-						>
-						{user.name}
-					</button>
-				</li>
-			{/each}
+			{#if userList}
+				{#each $userList as user}
+					<li class="w-full">
+						<button 
+								class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
+								class:bg-background-primary={drawerActions.user?.id === user.id}
+								onclick={() => handleDrawerActions({ user })}
+							>
+							{user.name}
+						</button>
+					</li>
+				{/each}
+			{/if}
 		</ul>
 
 			<button
@@ -78,10 +89,7 @@
 		</footer>
 	{:else}
 		<CreateUser
-			onCreateUser={user => {
-				userList.push(user)
-			  handleDrawerActions({ createNewUser: false })
-			}}
+			onCreateUser={onCreateUser}
 		/>
 	{/if}
 </div>
