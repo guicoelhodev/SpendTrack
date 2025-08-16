@@ -2,7 +2,7 @@
 	import { PieChart } from "layerchart";
 
 	type TProps = {
-		data: any[]
+		data: Array<{ color: string } & Record<string, any>>
 		key: string;
 		value: string;
 		colorsRange?: string[]
@@ -19,7 +19,7 @@
 		key={props.key}
 		value={props.value}
 		renderContext='canvas'
-		cRange={props.colorsRange ?? ['#e63946', '#f1a208', '#457b9d', '#43aa8b']}
+		c='color'
   >
   </PieChart>
 </div>

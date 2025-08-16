@@ -129,28 +129,25 @@
 
 	const data = [
 		{
-			"year": 2019,
-			"basket": 1,
 			"fruit": "apples",
-			"value": 3840
+			"total": 3840,
+			"color": "#e63946"
 		},
 		{
-			"year": 2019,
-			"basket": 1,
 			"fruit": "bananas",
-			"value": 1920
+			"total": 1920,
+			"color": "#f1a208"
 		},
 		{
-			"year": 2019,
-			"basket": 2,
 			"fruit": "cherries",
-			"value": 960
+			"total": 960,
+			"color": "#457b9d"
 		},
 		{
 			"year": 2019,
-			"basket": 2,
 			"fruit": "grapes",
-			"value": 400
+			"total": 400,
+			"color": "#43aa8b"
 		}
 	]
 </script>
@@ -159,21 +156,22 @@
 
 	<main class="w-full h-[calc(100%-5rem)] grid grid-cols-2 gap-4">
 
-		<div class="col-span-2 border">
+		<div class="col-span-2 border flex flex-col">
 			<ChartLine 
 				data={dateSeriesData}
 				axisName={{ x: 'date', y: 'va'}}
-				height={'300px'}
+				height={'500px'}
 			/>
 		</div>
 
-		<div class="border">
-			<PieChart
-				data={data} 
-				value='value'
-				key='fruit'
-			/>
-		</div>
+		<article class="border flex flex-col justify-center">
+				<PieChart
+					data={data} 
+					value='total'
+					key='fruit'
+					height='300px'
+				/>
+		</article>
 	</main>
 
 	<UserSetup />
