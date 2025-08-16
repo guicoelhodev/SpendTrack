@@ -1,8 +1,10 @@
 <script module>
+	import type { TUser } from "$lib/types/User";
+
 	export type TActions = {
 		isLogged: boolean;
 		showDrawer: boolean
-		currentUser: string | null
+		currentUser: TUser | null
 	};
 </script>
 
@@ -43,7 +45,7 @@
 
 	{#if actions.isLogged}
 		<div class="w-64 flex flex-col">
-			<p class="text-sm text-nowrap">Signed as <b>{actions.currentUser}</b></p>
+			<p class="text-sm text-nowrap">Signed as <b>{actions.currentUser.nickname}</b></p>
 			<span class="text-xs text-green-500">Online</span>
 		</div>
 	{:else}
