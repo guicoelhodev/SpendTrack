@@ -3,27 +3,25 @@
 	import { db } from "$lib/db";
 
 	export type TDrawerActions = {
-		user: TUser | null;
 		createNewUser: boolean;
+		user: TUser | null
 	}
 </script>
 
 <script lang="ts">
-	import type { TActions } from "../index.svelte";
 	import { liveQuery } from 'dexie'
 	import CreateUser from "./CreateUser.svelte";
 
 	type TProps = {
-		actions: TActions
-		onConnect: (user: TUser) => void
+		onConnect: (user: TUser) => Promise<void>
 		onDisconnect: VoidFunction
 	};
 
-	const { actions, ...props }: TProps = $props()
+	const props: TProps = $props()
 
 	let drawerActions: TDrawerActions = $state({
 		createNewUser: false,
-		user: actions.currentUser
+		user: null
 	});
 
 	function handleDrawerActions(partial: Partial<TDrawerActions>){
@@ -34,10 +32,11 @@
 		try {
 			await db.users.add({
 				name: user.name,
-				nickname: user.nickname
+				nickname: user.nickname,
+				id: user.id
 			});
 
-			return handleDrawerActions({ createNewUser: false })
+			handleDrawerActions({ createNewUser: false })
 		}catch (err){
 			console.error(`Error to add user:`, err)
 		}
@@ -73,14 +72,14 @@
 		</section>
 
 		<footer>
-			{#if drawerActions.user && !actions.currentUser}
+			{#if drawerActions.user}
 				<button onclick={() => props.onConnect(drawerActions.user!)} 
 					class="bg-green-600 w-full p-2 rounded-md">
 					Sign as {drawerActions.user.nickname}
 				</button>
 			{/if}
 
-			{#if drawerActions.user === actions.currentUser && actions.currentUser}
+			{#if drawerActions.user}
 				<button onclick={props.onDisconnect}
 					class="bg-red w-full p-2 rounded-md">
 					Disconnect

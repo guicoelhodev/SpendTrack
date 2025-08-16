@@ -19,8 +19,9 @@
 	});
 
 	let formData: TUser = $state({
-		name: 'Test name',
-		nickname: 'test_name'
+		id: crypto.randomUUID(),
+		name: '',
+		nickname: ''
 	});
 
 	let formErrors: Record<keyof TUser, string> = $state({
