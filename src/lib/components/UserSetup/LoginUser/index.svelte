@@ -10,7 +10,7 @@
 
 <script lang="ts">
 	import DrawerLogin from "./DrawerLogin/index.svelte";
-	import { liveQuery } from "dexie";
+	import { session } from '$lib/stores/session.svelte'
 
 	let showDrawer = $state(false)
 
@@ -31,9 +31,11 @@
 		}
 	};
 
-	let session = $derived(liveQuery(() => {
-		return db.session.where('id').equals(1).first()
-	}))
+	async function onDisconnect(){
+		await db.session.delete(1)
+		showDrawer = false
+	}
+
 
 	let isLogged = $derived(() => {
 		if(!$session?.expiresAt) return false
@@ -49,7 +51,8 @@
 
 	{#if showDrawer}
 		<DrawerLogin 
-			onDisconnect={() => showDrawer = false}
+			isLogged={isLogged()}
+			onDisconnect={onDisconnect}
 			onConnect={onConnect}
 		/>
 	{/if}

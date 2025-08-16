@@ -11,10 +11,12 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie'
 	import CreateUser from "./CreateUser.svelte";
+	import { session } from "$lib/stores/session.svelte";
 
 	type TProps = {
+		isLogged: boolean
 		onConnect: (user: TUser) => Promise<void>
-		onDisconnect: VoidFunction
+		onDisconnect: () => Promise<void>
 	};
 
 	const props: TProps = $props()
@@ -43,6 +45,11 @@
 	}
 
 	let userList = liveQuery(() => db.users.toArray());
+
+	function getFocusUser(user: TUser){
+		if(!drawerActions.user) return $session?.userId === user.id;
+		return drawerActions.user.id === user.id
+	}
 </script>
 
 <div class="drawer w-[360px] h-svh fixed top-0 right-0 bg-background-secondary p-4 flex flex-col justify-between">
@@ -55,8 +62,9 @@
 					<li class="w-full">
 						<button 
 								class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
-								class:bg-background-primary={drawerActions.user?.id === user.id}
+								class:bg-background-primary={getFocusUser(user)}
 								onclick={() => handleDrawerActions({ user })}
+								disabled={!!$session?.userId}
 							>
 							{user.name}
 						</button>
@@ -72,19 +80,20 @@
 		</section>
 
 		<footer>
-			{#if drawerActions.user}
+			{#if !props.isLogged && drawerActions.user?.id}
 				<button onclick={() => props.onConnect(drawerActions.user!)} 
 					class="bg-green-600 w-full p-2 rounded-md">
-					Sign as {drawerActions.user.nickname}
+					Sign as {drawerActions.user?.nickname}
 				</button>
 			{/if}
 
-			{#if drawerActions.user}
+			{#if props.isLogged && $session?.userId}
 				<button onclick={props.onDisconnect}
 					class="bg-red w-full p-2 rounded-md">
 					Disconnect
 				</button>
 			{/if}
+
 		</footer>
 	{:else}
 		<CreateUser
