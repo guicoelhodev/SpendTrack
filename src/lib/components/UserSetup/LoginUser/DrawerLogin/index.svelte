@@ -17,6 +17,7 @@
 		isLogged: boolean
 		onConnect: (user: TUser) => Promise<void>
 		onDisconnect: () => Promise<void>
+		onCancel: VoidFunction
 	};
 
 	const props: TProps = $props()
@@ -53,7 +54,13 @@
 <div class="drawer w-[360px] h-svh fixed top-0 right-0 bg-background-secondary p-4 flex flex-col justify-between">
 	{#if !drawerActions.createNewUser}
 		<section class="flex flex-col gap-4">
-		<h2 class="self-center font-semibold text-lg">Select a user to sign</h2>
+
+		<header class="flex items-center gap-4">
+			<button onclick={props.onCancel} aria-labelledby="goback">
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="24" viewBox="0 0 12 24"><path fill="currentColor" fill-rule="evenodd" d="m3.343 12l7.071 7.071L9 20.485l-7.778-7.778a1 1 0 0 1 0-1.414L9 3.515l1.414 1.414z"/></svg>
+			</button>
+			<h2 class="self-center font-semibold text-lg">Select a user to sign</h2>
+		</header>
 		<ul class="flex flex-col gap-2">
 			{#if users}
 				{#each $users as user}

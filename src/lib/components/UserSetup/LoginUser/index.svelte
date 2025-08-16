@@ -54,6 +54,7 @@
 			isLogged={isLogged()}
 			onDisconnect={onDisconnect}
 			onConnect={onConnect}
+			onCancel={() => showDrawer = false}
 		/>
 	{/if}
 

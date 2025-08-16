@@ -210,15 +210,18 @@ const barData = [
 
 	<main class="w-full h-[calc(100%-5rem)] grid grid-cols-2 gap-4 p-4">
 
-		<article class="col-span-2 border flex flex-col">
+		<article class="col-span-2 flex flex-col border-2 border-background-secondary rounded-md">
+			<div class="p-4">
+				<p class="text-3xl font-semibold text-red">TOTAL: R$ 2350,00</p>
+			</div>
 			<ChartLine 
 				data={dateSeriesData}
 				axisName={{ x: 'date', y: 'va'}}
-				height={'500px'}
+				height={'300px'}
 			/>
 		</article>
 
-		<article class="border flex flex-col justify-center">
+		<article class="flex flex-col justify-center border-2 border-background-secondary  rounded-md">
 			<PieChart
 				data={data} 
 				value='total'
@@ -227,7 +230,7 @@ const barData = [
 			/>
 		</article>
 
-		<article class="border">
+		<article class="border-2 border-background-secondary rounded-md flex flex-col justify-center">
 			<BarChart height='400px' data={barData} axisName={{ x: 'date', y: 'value'}}/>
 		</article>
 	</main>
