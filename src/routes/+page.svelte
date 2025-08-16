@@ -1,26 +1,19 @@
 <script lang="ts">
-	let isDark = $state(true);
+	import UserSetup from "$lib/components/UserSetup.svelte";
 
-	function toggleTheme(){
-		if(isDark){
-			document.documentElement.classList.remove('dark')
-		} else {
-			document.documentElement.classList.add('dark')
-		}
-
-		return isDark = !isDark
-	};
 
 </script>
-<div class="bg-background-primary w-svw h-svh text-white p-4">
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-	<div class="bg-background-secondary w-36 h-36">
+<div class="relative transition-colors bg-background-primary text-text-primary h-svh w-svw">
 
-	</div>
+	<main class="w-full h-[calc(100%-5rem)]">
+		<h1 class="text-text-primary">Welcome to SvelteKit</h1>
+		<h2 class="text-text-secondary">Welcome to SvelteKit</h2>
 
-	<button onclick={toggleTheme}>
-		mudar
-	</button>
+		<div class="bg-background-secondary w-36 h-36">
+
+		</div>
+	</main>
+
+	<UserSetup />
 </div>
