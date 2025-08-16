@@ -1,4 +1,4 @@
-<script module>
+<script module lang="ts">
 	import { db } from "$lib/db";
 	import type { TUser } from "$lib/types/User";
 
