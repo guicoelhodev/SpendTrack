@@ -7,11 +7,11 @@
 </script>
 
 <script lang="ts">
-	import DrawerLogin from "./DrawerLogin.svelte";
+	import DrawerLogin from "./DrawerLogin/index.svelte";
 
 	const initialState = {
 		isLogged: false,
-		showDrawer: false,
+		showDrawer: true,
 		currentUser: null
 	}
 	let actions: TActions = $state(initialState);

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TActions } from "./index.svelte";
+	import type { TActions } from "../index.svelte";
 
 	type TProps = {
 		actions: TActions
@@ -7,9 +7,17 @@
 		onDisconnect: VoidFunction
 	};
 
-	const props: TProps = $props()
+	type TDrawerActions = {
+		selectedUser: string | null;
+		createNewUser: boolean;
+	}
 
-	let selectedUser = $state<string | null>(props.actions.currentUser)
+	const { actions, ...props }: TProps = $props()
+
+	let drawerActions: TDrawerActions = $state({
+		createNewUser: false,
+		selectedUser: actions.currentUser
+	});
 
 	const userList = [
 		{ name: 'guicoelhodev', email: 'gs.coelho_dev@outlook.com' },
@@ -26,8 +34,8 @@
 			<li class="w-full">
 				<button 
 						class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
-						class:bg-background-primary={selectedUser === user.name}
-						onclick={() => selectedUser = user.name}
+						class:bg-background-primary={drawerActions.selectedUser === user.name}
+						onclick={() => drawerActions.selectedUser = user.name}
 					>
 					{user.name}
 				</button>
@@ -37,14 +45,14 @@
 	</section>
 
 	<footer>
-		{#if selectedUser && !props.actions.currentUser}
-			<button onclick={() => props.onConnect(selectedUser!)} 
+		{#if drawerActions.selectedUser && !actions.currentUser}
+			<button onclick={() => props.onConnect(drawerActions.selectedUser!)} 
 				class="bg-green-600 w-full p-2 rounded-md">
-				Sign as {selectedUser}
+				Sign as {drawerActions.selectedUser}
 			</button>
 		{/if}
 
-		{#if selectedUser === props.actions.currentUser && props.actions.currentUser}
+		{#if drawerActions.selectedUser === actions.currentUser && actions.currentUser}
 			<button onclick={props.onDisconnect}
 				class="bg-red w-full p-2 rounded-md">
 				Disconnect
