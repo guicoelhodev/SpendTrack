@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LoginUser from "./LoginUser.svelte";
+	import LoginUser from "./LoginUser/index.svelte";
 	import ToggleTheme from "./ToggleTheme.svelte";
 
 </script>

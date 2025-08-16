@@ -11,7 +11,7 @@
 
 	const initialState = {
 		isLogged: false,
-		showDrawer: true,
+		showDrawer: false,
 		currentUser: null
 	}
 	let actions: TActions = $state(initialState);

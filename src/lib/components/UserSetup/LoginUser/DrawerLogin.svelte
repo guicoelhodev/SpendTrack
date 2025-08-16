@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TActions } from "./LoginUser.svelte";
+	import type { TActions } from "./index.svelte";
 
 	type TProps = {
 		actions: TActions
