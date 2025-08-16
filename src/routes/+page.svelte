@@ -1,9 +1,9 @@
 <script lang="ts">
 	import UserSetup from "$lib/components/UserSetup/index.svelte";
 
-	import MonthlyExpenseChart from "$lib/components/MonthlyExpenseChart/index.svelte";
-	import MonthlyExpenseCategory from "$lib/components/MonthlyExpenseCategory/index.svelte";
-	import YearlyExpenseChart from "$lib/components/YearlyExpenseChart/index.svelte";
+	import MonthlyExpenseChart from "$lib/components/core/MonthlyExpenseChart/index.svelte";
+	import MonthlyExpenseCategory from "$lib/components/core/MonthlyExpenseCategory/index.svelte";
+	import YearlyExpenseChart from "$lib/components/core/YearlyExpenseChart/index.svelte";
 
 </script>
 

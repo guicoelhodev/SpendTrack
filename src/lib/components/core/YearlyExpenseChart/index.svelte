@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BarChart from "../UI/BarChart.svelte";
+	import BarChart from "$lib/components/UI/BarChart.svelte";
 
 	const barData = [
 		{
