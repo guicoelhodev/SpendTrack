@@ -7,6 +7,7 @@
 	import { application } from "$lib/stores/application.svelte";
 	import type { Component } from "svelte";
 	import About from "./About.svelte";
+	import General from "./General.svelte";
 
 	type TPaneKey = 'general' | 'appearence' | 'about'
 	type TMenu = { icon: Component, name: string, key: TPaneKey }
@@ -22,12 +23,12 @@
 	const paneViews: Record<TPaneKey, Component | null> = {
 		about: About,
 		appearence: null,
-		general: null
+		general: General
 	}
 </script>
 
 <Modal title='Application preferences' onClose={() => application.isOpenSetup = false}>
-	<div class="w-[600px] flex divide-x-1 divide-text-secondary">
+	<div class="flex divide-x-1 divide-text-secondary">
 		<ul class="pr-4 flex flex-col">
 			{#each menuOptions as option}
 				{@const Icon = option.icon}
@@ -43,7 +44,7 @@
 			{/each}
 		</ul>
 
-		<section class="w-full pl-4">
+		<section class="pl-4 w-[400px]">
 			{#if currentPane}
 				{@const Component = paneViews[currentPane]}
 				<Component />
