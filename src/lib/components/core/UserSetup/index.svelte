@@ -9,6 +9,7 @@
 		class="border-2 border-background-secondary rounded-md flex justify-between items-center gap-2 p-2"
 	>
 		<LoginUser />
+
 		<ToggleTheme />
 		<UserSetup />
 	</div>
