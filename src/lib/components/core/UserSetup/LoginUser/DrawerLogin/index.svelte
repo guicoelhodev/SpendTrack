@@ -1,4 +1,5 @@
 <script module lang="ts">
+	import SolarArrowLeftLinear from '~icons/solar/arrow-left-linear';
 	import type { TUser } from "$lib/types/User";
 	import { db } from "$lib/db";
 
@@ -57,7 +58,7 @@
 
 		<header class="flex items-center gap-4">
 			<button onclick={props.onCancel} aria-labelledby="goback">
-				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="24" viewBox="0 0 12 24"><path fill="currentColor" fill-rule="evenodd" d="m3.343 12l7.071 7.071L9 20.485l-7.778-7.778a1 1 0 0 1 0-1.414L9 3.515l1.414 1.414z"/></svg>
+				<SolarArrowLeftLinear />
 			</button>
 			<h2 class="self-center font-semibold text-lg">Select a user to sign</h2>
 		</header>
