@@ -22,15 +22,12 @@ db.version(1).stores({
 
 db.on('populate', async (tx) => {
   await tx.table('expanseCategory').bulkAdd([
-    { name: 'food', hexColor: '#e63946' },
-    { name: 'entertainment', hexColor: '#f1a208' },
-    { name: 'transport', hexColor: '#457b9d' },
-    { name: 'fix', hexColor: '#43aa8b' },
+    { name: 'food', hexColor: '#e63946', isDefault: true  },
+    { name: 'entertainment', hexColor: '#f1a208', isDefault: true  },
+    { name: 'transport', hexColor: '#457b9d', isDefault: true  },
+    { name: 'fix', hexColor: '#43aa8b', isDefault: true  },
   ]);
 });
 
-db.open().catch((e) => {
-  console.error('Failed to open db', e);
-});
 
 export { db };

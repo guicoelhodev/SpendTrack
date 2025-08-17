@@ -2,11 +2,38 @@
 	import { db } from "$lib/db";
 	import { liveQuery } from "dexie";
 
+	import SolarArrowRightLinear from '~icons/solar/arrow-right-linear';
+	import SolarTrashBin2Bold from '~icons/solar/trash-bin-2-bold';
+
+	const newColor = $state({
+		hexColor: '#F54927',
+		name: ''
+	});
+
 	const categories = liveQuery(() => db.expanseCategory.toArray())
 
 	async function handleColor(id: number, hexColor: string){
 		await db.expanseCategory.update(id, { hexColor })
 	}
+
+	async function createNewColor(){
+		if(!newColor.name){
+			return alert('You need to type a category first')
+		}
+
+		await db.expanseCategory.add({ 
+			hexColor: newColor.hexColor,
+			name: newColor.name,
+			isDefault: false
+		});
+
+		return newColor.name = ''
+	}
+
+	async function deleteCategory(index: number){
+		await db.expanseCategory.delete(index)
+	};
+
 </script>
 
 <section class="flex-1 flex flex-col gap-4">
@@ -25,7 +52,45 @@
 						await handleColor(category.id!, hexColor)
 					}}
 				/>
+
+				<div class="w-4">
+					{#if !category.isDefault}
+						<button 
+							onclick={async() => await deleteCategory(category.id!)}
+							class="text-red"
+						>
+							<SolarTrashBin2Bold />
+						</button>
+					{/if}
+				</div>
 			</li>
 		{/each}
 	</ul>
+
+	<form 
+		class="flex items-center gap-2"
+		onsubmit={async(e) => {
+			e.preventDefault();
+			await createNewColor()
+		}}
+	>
+		<input
+			class="p-1 flex-1 pl-2 outline-0 rounded-sm outline-text-secondary focus:outline-1"
+			placeholder="Add new category"
+			bind:value={newColor.name}
+		/>
+
+		<input
+			type="color"
+			bind:value={newColor.hexColor}
+			class="w-12 h-6"
+		/>
+
+		<button
+			class="text-text-secondary border p-2 rounded-full"
+			type="submit"
+		>
+			<SolarArrowRightLinear />
+		</button>
+	</form>
 </section>
