@@ -4,6 +4,7 @@
 
 	import SolarArrowRightLinear from '~icons/solar/arrow-right-linear';
 	import SolarTrashBin2Bold from '~icons/solar/trash-bin-2-bold';
+	import CurrencyType from "./CurrencyType.svelte";
 
 	const newColor = $state({
 		hexColor: '#F54927',
@@ -37,7 +38,7 @@
 </script>
 
 <section class="flex-1 flex flex-col gap-4">
-	<h4 class="font-semibold pb-1 border-b-1">Category colors</h4>
+	<h4 class="font-semibold">Category colors</h4>
 	<ul class="text-text-secondary flex flex-col gap-4">
 		{#each $categories as category}
 			<li class="flex items-center gap-4 justify-between">
@@ -93,4 +94,6 @@
 			<SolarArrowRightLinear />
 		</button>
 	</form>
+
+	<CurrencyType />
 </section>
