@@ -47,7 +47,7 @@
 
 
 <article 
-	class="wrapper flex gap-4 items-start"
+	class="wrapper flex gap-4 items-center"
 	data-open={isLogged()}
 >
 

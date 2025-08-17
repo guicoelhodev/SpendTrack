@@ -7,7 +7,7 @@
 	import { application } from "$lib/stores/application.svelte";
 	import type { Component } from "svelte";
 	import About from "./About.svelte";
-	import General from "./General.svelte";
+	import General from "./General/index.svelte";
 
 	type TPaneKey = 'general' | 'appearence' | 'about'
 	type TMenu = { icon: Component, name: string, key: TPaneKey }
