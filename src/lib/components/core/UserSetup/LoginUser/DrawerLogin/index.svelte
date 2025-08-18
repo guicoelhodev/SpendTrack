@@ -47,7 +47,7 @@
 
 			handleDrawerActions({ createNewUser: false })
 		}catch (err){
-			console.error(`Error to add user:`, err)
+			console.error(err)
 		}
 	}
 

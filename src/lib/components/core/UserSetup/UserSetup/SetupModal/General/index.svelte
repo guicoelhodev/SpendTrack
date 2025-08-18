@@ -8,6 +8,7 @@
 
 	const categoryService = new ExpanseCategoryService();
 
+	const categories = liveQuery(() => categoryService.getList())
 	const newColor = $state({
 		hexColor: '#F54927',
 		name: ''
@@ -22,13 +23,23 @@
 			return alert('You need to type a category first')
 		}
 
-		await categoryService.add({ 
-			hexColor: newColor.hexColor,
-			name: newColor.name,
-			isDefault: false
-		});
+		const alreadyExist = $categories.find(i => i.name === newColor.name);
 
-		return newColor.name = ''
+		if(alreadyExist){
+			return alert('You need to add a different name to add')
+		};
+
+		try {
+			await categoryService.add({ 
+				hexColor: newColor.hexColor,
+				name: newColor.name,
+				isDefault: false
+			});
+
+			return newColor.name = ''
+		}catch (error){
+			console.log((error as Error).message)
+		}
 	}
 
 	async function deleteCategory(index: number){
@@ -39,7 +50,6 @@
 		}
 	};
 
-	const categories = liveQuery(() => categoryService.getList())
 </script>
 
 <section class="flex-1 flex flex-col gap-4">
