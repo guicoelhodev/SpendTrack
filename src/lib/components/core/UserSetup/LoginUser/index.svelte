@@ -15,21 +15,24 @@
 	import { application } from "$lib/stores/application.svelte";
 	import { db } from '$lib/api/adapters/driven/datasource/db';
 	import type { TUser } from '$lib/api/core/models/User';
+	import { SessionService } from '$lib/api/application/presentation/SessionService';
+
+	const sessionService = new SessionService();
 
 	async function onConnect(user: TUser){
 		try {
 			const expiresAt = new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString();
 
-			await db.session.put({
+			await sessionService.updateSession({
 				id: 1,
 				userId: user.id,
 				expiresAt: expiresAt,
 				nickname: user.nickname
-			});
+			})
 
 			application.isDrawer = false
 		}catch (error) {
-			console.error(`Error to connect:`, error)
+			console.error((error as Error).message)
 		}
 	};
 
