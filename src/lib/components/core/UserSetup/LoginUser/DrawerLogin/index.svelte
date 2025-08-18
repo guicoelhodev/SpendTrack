@@ -9,13 +9,16 @@
 
 <script lang="ts">
 	import CreateUser from "./CreateUser.svelte";
-	import { session } from "$lib/stores/session.svelte";
 	import { db } from '$lib/api/adapters/driven/datasource/db';
 	import type { TUser } from '$lib/api/core/models/User';
 	import { UserService } from '$lib/api/application/presentation/UserService';
 	import { liveQuery } from 'dexie';
+	import { SessionService } from '$lib/api/application/presentation/SessionService';
 
 	const userService = new UserService()
+	const sessionService = new SessionService()
+
+	const session = liveQuery(async() => await sessionService.getSession(1));
 
 	type TProps = {
 		isLogged: boolean

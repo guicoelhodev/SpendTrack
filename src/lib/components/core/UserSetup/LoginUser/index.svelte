@@ -11,13 +11,13 @@
 
 <script lang="ts">
 	import DrawerLogin from "./DrawerLogin/index.svelte";
-	import { session } from '$lib/stores/session.svelte'
 	import { application } from "$lib/stores/application.svelte";
-	import { db } from '$lib/api/adapters/driven/datasource/db';
 	import type { TUser } from '$lib/api/core/models/User';
 	import { SessionService } from '$lib/api/application/presentation/SessionService';
+	import { liveQuery } from 'dexie';
 
 	const sessionService = new SessionService();
+	const session = liveQuery(async() => await sessionService.getSession(1));
 
 	async function onConnect(user: TUser){
 		try {

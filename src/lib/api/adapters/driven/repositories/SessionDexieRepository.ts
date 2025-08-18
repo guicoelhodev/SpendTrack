@@ -16,4 +16,9 @@ export class SessionDexieRepository implements SessionRepository {
 	async deleteSession(sessionIndex: number){
 		await this.database.session.delete(sessionIndex)
 	}
+
+	async getSession(sessionIndex: number){
+		const session = await this.database.session.get(sessionIndex)
+		return session ?? null
+	}
 }
