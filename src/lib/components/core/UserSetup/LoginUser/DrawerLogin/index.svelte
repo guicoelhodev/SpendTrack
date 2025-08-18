@@ -10,9 +10,12 @@
 <script lang="ts">
 	import CreateUser from "./CreateUser.svelte";
 	import { session } from "$lib/stores/session.svelte";
-	import { users } from "$lib/stores/users.svelte";
 	import { db } from '$lib/api/adapters/driven/datasource/db';
 	import type { TUser } from '$lib/api/core/models/User';
+	import { UserService } from '$lib/api/application/presentation/UserService';
+	import { liveQuery } from 'dexie';
+
+	const userService = new UserService()
 
 	type TProps = {
 		isLogged: boolean
@@ -50,6 +53,8 @@
 		if(!drawerActions.user) return $session?.userId === user.id;
 		return drawerActions.user.id === user.id
 	}
+
+	const users = liveQuery(async() => await userService.getAllUsers())
 </script>
 
 <div class="drawer w-[360px] h-svh fixed top-0 right-0 bg-background-secondary p-4 flex flex-col justify-between">
