@@ -17,7 +17,7 @@
 	const categories = liveQuery(() => db.expanseCategory.toArray())
 
 	async function handleColor(id: number, hexColor: string){
-		await db.expanseCategory.update(id, { hexColor })
+		await categoryService.update(id, { hexColor })
 	}
 
 	async function createNewColor(){
