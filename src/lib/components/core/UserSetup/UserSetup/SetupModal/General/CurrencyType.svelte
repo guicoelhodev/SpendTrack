@@ -2,15 +2,15 @@
 	import { application } from "$lib/stores/application.svelte";
 
 	type TCurrency = {
-		name: string;
+		location: string;
 		code: string;
 	}
 
 	const currencyItems: TCurrency[] = [
-		{ name: "Euro", code: "EUR" },
-		{ name: "Brazilian Real", code: "BRL" },
-		{ name: "US Dollar", code: "USD" },
-		{ name: "Japanese Yen", code: "JPY" }
+		{ location: "de-DE", code: "EUR" },
+		{ location: "pt-BR", code: "BRL" },
+		{ location: "en-US", code: "USD" },
+		{ location: "ja-JP", code: "JPY" }
 	]
 </script>
 
@@ -21,7 +21,10 @@
 		<button 
 			class="px-2 border rounded-md font-semibold"
 			class:bg-text-primary={application.currencyType === currency.code}
-			onclick={() => application.currencyType = currency.code}
+			onclick={() => {
+				application.currencyType = currency.code
+				application.currencyLocation = currency.location
+			}}
 		>
 			{currency.code}
 		</button>
