@@ -1,8 +1,8 @@
+import type { TExpanseCategory } from '$lib/api/core/models/ExpanseCategory';
+import type { TSession } from '$lib/api/core/models/Session';
+import type { TUser } from '$lib/api/core/models/User';
 import Dexie, { type EntityTable } from 'dexie';
 
-import type { TUser } from '$lib/types/User';
-import type { TSession } from '$lib/types/Session';
-import type { TExpanseCategory } from '$lib/types/ExpanseCategory';
 
 const db = new Dexie('SpendTrack_DB') as Dexie & {
   users: EntityTable<
