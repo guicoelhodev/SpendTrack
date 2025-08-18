@@ -5,6 +5,9 @@
 	import SolarTrashBin2Bold from '~icons/solar/trash-bin-2-bold';
 	import CurrencyType from "./CurrencyType.svelte";
 	import { db } from "$lib/api/adapters/driven/datasource/db";
+	import { ExpanseCategoryService } from "$lib/api/application/presentation/ExpanseCategoryService";
+
+	const categoryService = new ExpanseCategoryService();
 
 	const newColor = $state({
 		hexColor: '#F54927',
@@ -32,7 +35,11 @@
 	}
 
 	async function deleteCategory(index: number){
-		await db.expanseCategory.delete(index)
+		try {
+			await categoryService.delete(index)
+		}catch (error){
+			console.error((error as Error).message)
+		}
 	};
 
 </script>
