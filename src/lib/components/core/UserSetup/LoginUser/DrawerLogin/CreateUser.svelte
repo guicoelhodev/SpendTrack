@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TUser } from "$lib/types/User";
+	import type { TUser } from '$lib/api/core/models/User';
 	import * as z from 'zod'
 
 	const formShema = z.object({

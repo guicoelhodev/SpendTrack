@@ -1,6 +1,5 @@
 <script module lang="ts">
 	import SolarArrowLeftLinear from '~icons/solar/arrow-left-linear';
-	import type { TUser } from "$lib/types/User";
 
 	export type TDrawerActions = {
 		createNewUser: boolean;
@@ -13,6 +12,7 @@
 	import { session } from "$lib/stores/session.svelte";
 	import { users } from "$lib/stores/users.svelte";
 	import { db } from '$lib/api/adapters/driven/datasource/db';
+	import type { TUser } from '$lib/api/core/models/User';
 
 	type TProps = {
 		isLogged: boolean
