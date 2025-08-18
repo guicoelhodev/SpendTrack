@@ -5,6 +5,10 @@ export class DeleteSession  {
 	constructor(private sessionRepository: SessionRepository){}
 
 	async execute(sessionIndex:number){
-		return this.sessionRepository.deleteSession(sessionIndex)
+		try {
+			return await this.sessionRepository.deleteSession(sessionIndex)
+		}catch (error){
+			throw new Error(`[Error to delete session]: ${(error as Error).message}`)
+		}
 	}
 }

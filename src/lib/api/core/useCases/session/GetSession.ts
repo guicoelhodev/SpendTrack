@@ -5,6 +5,10 @@ export class GetSession {
 	constructor(private sessionRepository: SessionRepository){}
 
 	async execute(sessionIndex:number){
-		return this.sessionRepository.getSession(sessionIndex)
+		try {
+			return await this.sessionRepository.getSession(sessionIndex)
+		}catch (error){
+			throw new Error(`[Error to GET session]: ${(error as Error).message}`)
+		}
 	}
 }
