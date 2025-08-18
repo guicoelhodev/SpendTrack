@@ -19,5 +19,9 @@ export class ExpanseCategoryDexieRepository implements ExpanseCategoryRepository
 	async editCategory(index:number, data: TEditExpanseCategory){
 		await this.database.expanseCategory.update(index, data)
 	}
+
+	async getCategories() {
+	  return await this.database.expanseCategory.toArray()
+	}
 }
 

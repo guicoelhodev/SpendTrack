@@ -3,6 +3,7 @@ import { ExpanseCategoryDexieRepository } from "$lib/api/adapters/driven/reposit
 import { AddCategoryUseCase } from "$lib/api/core/useCases/expanseCategory/AddCategory";
 import { ExpanseCategoryDelete } from "$lib/api/core/useCases/expanseCategory/DeleteCategory";
 import { UpdateCategoryUseCase } from "$lib/api/core/useCases/expanseCategory/UpdateCategoryUseCase";
+import { GetCategoriesUseCase } from "$lib/api/core/useCases/expanseCategory/GetCategoriesUseCase";
 
 const expanseCategoryRepository = new ExpanseCategoryDexieRepository(db)
 
@@ -16,4 +17,8 @@ export function makeExpanseCategoryAdd(){
 
 export function makeExpanseCategoryUpdate(){
 	return new UpdateCategoryUseCase(expanseCategoryRepository)
+}
+
+export function makeExpanseCategoryList(){
+	return new GetCategoriesUseCase(expanseCategoryRepository)
 }

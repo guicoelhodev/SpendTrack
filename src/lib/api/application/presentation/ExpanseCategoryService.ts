@@ -1,6 +1,6 @@
 import type { TExpanseCategory } from "$lib/api/core/models/ExpanseCategory";
 
-import { makeExpanseCategoryAdd, makeExpanseCategoryDelete, makeExpanseCategoryUpdate } from "../factories/expanseCategory";
+import { makeExpanseCategoryAdd, makeExpanseCategoryDelete, makeExpanseCategoryList, makeExpanseCategoryUpdate } from "../factories/expanseCategory";
 
 export class ExpanseCategoryService{
 
@@ -11,7 +11,12 @@ export class ExpanseCategoryService{
 	async add(data: TExpanseCategory) {
 		return await makeExpanseCategoryAdd().execute(data)
 	}
+
 	async update(index: number, data: Partial<TExpanseCategory>){
 		return await makeExpanseCategoryUpdate().execute(index, data)
+	}
+
+	async getList(){
+		return await makeExpanseCategoryList().execute()
 	}
 }

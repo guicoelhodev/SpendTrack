@@ -6,4 +6,5 @@ export interface ExpanseCategoryRepository {
 	deleteCategory(categoryIndex: number): Promise<void>
 	addCategory(data: TExpanseCategory): Promise<void>
 	editCategory(categoryIndex: number, data: TUpdateCategory): Promise<void>
+	getCategories(): Promise<TExpanseCategory[]>
 }

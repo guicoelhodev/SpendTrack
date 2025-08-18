@@ -4,7 +4,6 @@
 	import SolarArrowRightLinear from '~icons/solar/arrow-right-linear';
 	import SolarTrashBin2Bold from '~icons/solar/trash-bin-2-bold';
 	import CurrencyType from "./CurrencyType.svelte";
-	import { db } from "$lib/api/adapters/driven/datasource/db";
 	import { ExpanseCategoryService } from "$lib/api/application/presentation/ExpanseCategoryService";
 
 	const categoryService = new ExpanseCategoryService();
@@ -13,8 +12,6 @@
 		hexColor: '#F54927',
 		name: ''
 	});
-
-	const categories = liveQuery(() => db.expanseCategory.toArray())
 
 	async function handleColor(id: number, hexColor: string){
 		await categoryService.update(id, { hexColor })
@@ -42,6 +39,7 @@
 		}
 	};
 
+	const categories = liveQuery(() => categoryService.getList())
 </script>
 
 <section class="flex-1 flex flex-col gap-4">
