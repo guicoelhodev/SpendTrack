@@ -37,7 +37,12 @@
 	};
 
 	async function onDisconnect(){
-		await db.session.delete(1)
+		try {
+			await sessionService.deleteSession(1)
+		}catch (error) {
+			console.error((error as Error).message)
+		}
+
 		application.isDrawer = false
 	}
 

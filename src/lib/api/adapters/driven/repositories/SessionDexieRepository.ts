@@ -4,11 +4,16 @@ import type { db } from "../datasource/db";
 export class SessionDexieRepository implements SessionRepository {
 
 	constructor(private database: typeof db){}
+
 	async updateSession(sessionIndex: number, data: TUpdateSession){
 
 		await this.database.session.put({
 			id: sessionIndex,
 			...data
 		})
+	}
+
+	async deleteSession(sessionIndex: number){
+		await this.database.session.delete(sessionIndex)
 	}
 }
