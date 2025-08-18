@@ -1,10 +1,10 @@
 <script lang='ts'>
-	import { db } from "$lib/db";
 	import { liveQuery } from "dexie";
 
 	import SolarArrowRightLinear from '~icons/solar/arrow-right-linear';
 	import SolarTrashBin2Bold from '~icons/solar/trash-bin-2-bold';
 	import CurrencyType from "./CurrencyType.svelte";
+	import { db } from "$lib/api/adapters/driven/datasource/db";
 
 	const newColor = $state({
 		hexColor: '#F54927',

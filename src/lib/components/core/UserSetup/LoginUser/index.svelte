@@ -2,7 +2,6 @@
 	import SolarLogout2Bold from '~icons/solar/logout-2-bold';
 	import SolarUserBold from '~icons/solar/user-bold';
 
-	import { db } from "$lib/db";
 	import type { TUser } from "$lib/types/User";
 
 	export type TActions = {
@@ -15,6 +14,7 @@
 	import DrawerLogin from "./DrawerLogin/index.svelte";
 	import { session } from '$lib/stores/session.svelte'
 	import { application } from "$lib/stores/application.svelte";
+	import { db } from '$lib/api/adapters/driven/datasource/db';
 
 	async function onConnect(user: TUser){
 		try {
