@@ -8,6 +8,7 @@
 	type TProps = { onClose: VoidFunction }
 
 	type TExpanseForm = {
+		date: string
 		currentCategoryName: string
 		total:number;
 	};
@@ -18,6 +19,7 @@
 	const categoryService = new ExpanseCategoryService();
 
 	let expanseForm = $state<TExpanseForm>({
+		date: new Intl.DateTimeFormat('en-CA').format(new Date()),
 		currentCategoryName: 'food',
 		total: 0
 	});
@@ -31,10 +33,22 @@
 	<form class="flex flex-col gap-4 w-[30rem]">
 		<article class="flex flex-col gap-2">
 			<label class="text-text-primary" for='category-select'>
+				Expanse date:
+			</label>
+
+			<input 
+				type="date"
+				class="border border-text-secondary p-2 outline-1 outline-transparent rounded-md focus:outline-text-secondary"
+				bind:value={expanseForm.date}
+			/>
+		</article>
+
+		<article class="flex flex-col gap-2">
+			<label class="text-text-primary" for='category-select'>
 				Choose expanse category:
 			</label>
 
-			<ul class="flex gap-2">
+			<ul class="flex gap-2 flex-wrap">
 				{#each $categories as category}
 				<li
 					class="p-2 border rounded-sm"
