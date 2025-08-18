@@ -9,7 +9,6 @@
 
 <script lang="ts">
 	import CreateUser from "./CreateUser.svelte";
-	import { db } from '$lib/api/adapters/driven/datasource/db';
 	import type { TUser } from '$lib/api/core/models/User';
 	import { UserService } from '$lib/api/application/presentation/UserService';
 	import { liveQuery } from 'dexie';
@@ -40,7 +39,7 @@
 
 	async function onCreateUser(user: TUser){
 		try {
-			await db.users.add({
+			await userService.addUser({
 				name: user.name,
 				nickname: user.nickname,
 				id: user.id

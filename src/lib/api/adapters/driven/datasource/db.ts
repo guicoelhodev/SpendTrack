@@ -17,7 +17,7 @@ const db = new Dexie('SpendTrack_DB') as Dexie & {
 db.version(1).stores({
   users: 'id, name, nickname',
 	session: "++id, userId",
-	expanseCategory: "++id, name"
+	expanseCategory: "++id, &name"
 });
 
 db.on('populate', async (tx) => {

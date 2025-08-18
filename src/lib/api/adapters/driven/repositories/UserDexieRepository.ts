@@ -8,4 +8,8 @@ export class UserDexieRepository implements UserRepository {
   async getAllUsers(): Promise<TUser[]>{
 		return await this.database.users.toArray()
 	}
+
+	async addUser(data: TUser): Promise<void>{
+		await this.database.users.add(data)
+	}
 }
