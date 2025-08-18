@@ -1,4 +1,6 @@
+import type { TExpanseCategory } from "$lib/api/core/models/ExpanseCategory";
 import type { ExpanseCategoryRepository } from "$lib/api/core/ports/ExpanseCategoryRepository";
+
 import type { db } from "../datasource/db";
 
 export class ExpanseCategoryDexieRepository implements ExpanseCategoryRepository {
@@ -6,6 +8,10 @@ export class ExpanseCategoryDexieRepository implements ExpanseCategoryRepository
 
 	async deleteCategory(categoryIndex: number) {
 		return await this.database.expanseCategory.delete(categoryIndex)
+	}
+
+	async addCategory(data: TExpanseCategory) {
+		await this.database.expanseCategory.add(data)    
 	}
 }
 

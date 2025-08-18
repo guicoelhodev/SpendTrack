@@ -25,7 +25,7 @@
 			return alert('You need to type a category first')
 		}
 
-		await db.expanseCategory.add({ 
+		await categoryService.add({ 
 			hexColor: newColor.hexColor,
 			name: newColor.name,
 			isDefault: false
