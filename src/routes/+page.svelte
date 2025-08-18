@@ -5,6 +5,7 @@
 	import MonthlyExpenseCategory from "$lib/components/core/MonthlyExpenseCategory/index.svelte";
 	import YearlyExpenseChart from "$lib/components/core/YearlyExpenseChart/index.svelte";
 	import Modal from "$lib/components/ui/Modal.svelte";
+	import CreateExpanseModal from "$lib/components/core/CreateExpanseModal/index.svelte"
 
 	let showModal = $state(false);
 </script>
@@ -17,8 +18,9 @@
 				AOBA
 			</section>
 		</Modal>
-	
 	{/if}
+
+	<CreateExpanseModal onClose={() => {}}/>
 
 	<main class="w-full h-[calc(100%-5rem)] grid grid-cols-2 gap-4 p-4">
 

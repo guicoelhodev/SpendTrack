@@ -26,7 +26,7 @@
 		const alreadyExist = $categories.find(i => i.name === newColor.name);
 
 		if(alreadyExist){
-			return alert('You need to add a different name to add')
+			return alert('You need to add a different name on category')
 		};
 
 		try {
