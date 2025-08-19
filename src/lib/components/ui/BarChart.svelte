@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { application } from "$lib/stores/application.svelte";
 	import { BarChart } from "layerchart";
 
 	type TProps = {
@@ -11,5 +12,10 @@
 
 
 <div style={`height: ${props.height ?? '300px'}`} class="p-4 rounded-sm">
-  <BarChart data={props.data} x={props.axisName.x} y={props.axisName.y}/>
+  <BarChart
+		data={props.data}
+		x={props.axisName.x}
+		y={props.axisName.y}
+		cRange={[application.chartBarColor]}
+	/>
 </div>
