@@ -3,7 +3,7 @@ import type { ExpanseAmountRepository } from "../../ports/ExpanseAmountRepositor
 
 type TExpanseItem = Omit<ExpanseAmount, 'id'>
 
-export class GetExpanseAmountListUseCase {
+export class GetExpanseAmountByCategory {
 	constructor(private expanseAmountRepository: ExpanseAmountRepository){};
 
 	async execute(indexMonth: string){
