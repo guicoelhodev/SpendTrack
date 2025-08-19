@@ -6,12 +6,12 @@
 </script>
 
 <button
-	onclick={() => application.isOpenSetup = true }
+	onclick={() => application.openModal = 'openSetup' }
 	class="bg-background-primary p-2 rounded-full grid place-content-center"
 	aria-labelledby="setup-user">
 		<SolarSettingsBold />
 </button>
 
-{#if application.isOpenSetup}
-	<SetupModal />
+{#if application.openModal === 'openSetup'}
+	<SetupModal onClose={() => application.openModal = 'idle'} />
 {/if}

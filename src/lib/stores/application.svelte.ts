@@ -1,13 +1,14 @@
 type TApplication = {
 	isDrawer: boolean
-	isOpenSetup: boolean
+	openModal:  'idle' | 'addExpanse' | 'openSetup'
 	currencyType: string
 	currencyLocation: string
 };
 
+
 export const application = $state<TApplication>({
 	isDrawer: false,
-	isOpenSetup: true,
 	currencyType: 'USD',
-	currencyLocation: 'en-UI'
+	currencyLocation: 'en-UI',
+	openModal: 'idle'
 })
