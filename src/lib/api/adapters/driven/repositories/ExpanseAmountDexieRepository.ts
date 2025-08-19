@@ -1,0 +1,12 @@
+import type { ExpanseAmount } from "$lib/api/core/models/ExpanseAmount";
+import type { ExpanseAmountRepository } from "$lib/api/core/ports/ExpanseAmountRepository";
+import type { db } from "../datasource/db";
+
+export class ExpanseAmountDexieRepository implements ExpanseAmountRepository {
+
+	constructor(private database: typeof db){}
+
+	async addExpanseAmount(expanseAmount: ExpanseAmount){
+		await this.database.expanseAmount.add(expanseAmount)
+	}
+}

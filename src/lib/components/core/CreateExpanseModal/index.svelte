@@ -5,6 +5,7 @@
 	import { liveQuery } from "dexie";
 	import { application } from "$lib/stores/application.svelte";
 	import z from 'zod';
+	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
 	
 	type TProps = { onClose: VoidFunction }
 	type TExpanseForm = z.infer<typeof formSchema>;
@@ -20,7 +21,9 @@
 	const categories = liveQuery(() => categoryService.getList());
 	const props: TProps = $props();
 
+
 	const categoryService = new ExpanseCategoryService();
+	const expanseAmountService = new ExpanseAmountService();
 
 	let expanseForm = $state<TExpanseForm>({
 		date: new Intl.DateTimeFormat('en-CA').format(new Date()),
@@ -32,6 +35,16 @@
 
 	let formErrors: Record<keyof TExpanseForm, string> = $state(defaultError);
 
+	async function onSubmitForm(formData: TExpanseForm){
+		await expanseAmountService.add({
+			amount: formData.total,
+			categoryName: formData.categoryName,
+			defaultHexColor: $categories.find(i => i.name === formData.categoryName)!.hexColor,
+			createdAt: new Date(formData.date).toISOString(),
+		})
+
+		return props.onClose()
+	}
 </script>
 
 <Modal title='Add new expanse' onClose={props.onClose}>
@@ -43,7 +56,7 @@
 
 		if(validation.success) {
 			formErrors = defaultError
-			return alert('Sucesso');
+			return await onSubmitForm(expanseForm)
 		}
 
 		Object.keys(expanseForm).forEach(inputKey => {

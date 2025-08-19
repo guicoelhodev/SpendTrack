@@ -4,7 +4,6 @@ import type { TSession } from '$lib/api/core/models/Session';
 import type { TUser } from '$lib/api/core/models/User';
 import Dexie, { type EntityTable } from 'dexie';
 
-
 const db = new Dexie('SpendTrack_DB') as Dexie & {
   users: EntityTable<
     TUser,
@@ -20,7 +19,7 @@ db.version(1).stores({
   users: 'id, name, nickname',
 	session: "++id, userId",
 	expanseCategory: "++id, &name",
-	expanseAmount: "++id, createdAt, mountIndex, categoryName"
+	expanseAmount: "++id, createdAt, monthIndex, categoryName"
 });
 
 db.on('populate', async (tx) => {
