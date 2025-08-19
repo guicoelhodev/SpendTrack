@@ -9,4 +9,10 @@ export class ExpanseAmountDexieRepository implements ExpanseAmountRepository {
 	async addExpanseAmount(expanseAmount: ExpanseAmount){
 		await this.database.expanseAmount.add(expanseAmount)
 	}
+
+	async getExpanseByMonth(monthIndex: string){
+		return await this.database.expanseAmount
+			.where({ monthIndex })
+			.toArray()
+	}
 }

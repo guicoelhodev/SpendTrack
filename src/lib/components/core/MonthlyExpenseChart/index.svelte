@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
 	import ChartLine from "$lib/components/ui/ChartLine.svelte";
+	import { liveQuery } from "dexie";
 
+	const expanseAmountService = new ExpanseAmountService();
 	const dateSeriesData = [
 		{
 			"date": new Date('2025-07-17T03:00:00.000Z'),
@@ -123,6 +126,12 @@
 			"va": 60
 		}
 	]
+
+	const expanseAmountList= liveQuery(() => {
+		return expanseAmountService.getByMonth('august_2025')
+	});
+
+	$inspect($expanseAmountList)
 </script>
 
 <ChartLine 
