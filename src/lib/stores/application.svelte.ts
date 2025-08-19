@@ -7,7 +7,7 @@ type TApplication = {
 
 export const application = $state<TApplication>({
 	isDrawer: false,
-	isOpenSetup: false,
+	isOpenSetup: true,
 	currencyType: 'USD',
 	currencyLocation: 'en-UI'
 })

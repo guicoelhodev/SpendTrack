@@ -8,13 +8,14 @@
 	import type { Component } from "svelte";
 	import About from "./About.svelte";
 	import General from "./General/index.svelte";
+	import Appearance from "./Appearance/index.svelte";
 
-	type TPaneKey = 'general' | 'appearence' | 'about'
+	type TPaneKey = 'general' | 'appearance' | 'about'
 	type TMenu = { icon: Component, name: string, key: TPaneKey }
 
 	const menuOptions: TMenu[] = [
 		{ icon: SolarSettingsBold, name: 'General settings', key: 'general' },
-		{ icon: SolarLinkMinimalistic2Bold, name: 'Appearence', key: 'appearence' },
+		{ icon: SolarLinkMinimalistic2Bold, name: 'Appearance', key: 'appearance' },
 		{ icon: SolarInfoCircleOutline, name: 'About project', key: 'about' }
 	]
 
@@ -22,7 +23,7 @@
 
 	const paneViews: Record<TPaneKey, Component | null> = {
 		about: About,
-		appearence: null,
+		appearance: Appearance,
 		general: General
 	}
 </script>
