@@ -53,6 +53,7 @@
 			"baseline": 72
 		}
 	]
+
 </script>
 
 <BarChart height='400px' data={barData} axisName={{ x: 'date', y: 'value'}}/>
