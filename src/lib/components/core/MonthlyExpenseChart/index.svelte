@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
-	import ChartLine from "$lib/components/ui/ChartLine.svelte";
+	import BarChart from "$lib/components/ui/BarChart.svelte";
 	import { liveQuery } from "dexie";
 
 	const expanseAmountService = new ExpanseAmountService();
@@ -120,6 +120,7 @@
 		{
 			"date": new Date('2025-08-14T03:00:00.000Z'),
 			"va": 63
+
 		},
 		{
 			"date": new Date('2025-08-15T03:00:00.000Z'),
@@ -127,15 +128,24 @@
 		}
 	]
 
-	const expanseAmountList= liveQuery(() => {
-		return expanseAmountService.getByMonth('august_2025')
+	const expanseAmountList= liveQuery(async() => {
+		const list = await expanseAmountService.getByMonth('august_2025')
+
+		return list.map(i => ({
+		  amount: i.amount,
+			createdAt: new Intl.DateTimeFormat('en-US', {
+				day: '2-digit',
+				month: '2-digit'
+			}).format(new Date(i.dateISO))
+		}))
 	});
 
-	$inspect($expanseAmountList)
 </script>
 
-<ChartLine 
-	data={dateSeriesData}
-	axisName={{ x: 'date', y: 'va'}}
-	height={'300px'}
-/>
+{#if expanseAmountList}
+	<BarChart
+		data={$expanseAmountList}
+		axisName={{ x: 'createdAt', y: 'amount'}}
+		height={'300px'}
+	/>
+{/if}
