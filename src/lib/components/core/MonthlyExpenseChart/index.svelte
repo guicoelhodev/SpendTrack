@@ -41,14 +41,15 @@
 
 </script>
 
-<article class="h-full">
+<article class="h-full text-center">
 	{#if $expanseAmountList?.length}
 		<BarChart
 			data={$expanseAmountList}
 			axisName={{ x: 'date', y: 'amount'}}
 			height={'300px'}
 		/>
-	{:else}
+		<span>Expanse by day</span>
+	{:else if !!$expanseAmountList}
 		<div class="flex flex-col gap-2 h-full">
 			{#await getFakeChart()}
 				<div class="flex-1 grid place-content-center p-4">

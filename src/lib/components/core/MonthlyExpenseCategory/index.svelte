@@ -61,6 +61,7 @@
 
 </script>
 
+
 {#if $expanseAmountList?.length}
 	{@const total = getTotal()}
 	<section class="flex flex-col gap-4">
@@ -88,7 +89,7 @@
 			{/each}
 		</ul>
 	</section>
-	{:else}
+	{:else if !!$expanseAmountList}
 	<section class="text-center">
 		{#await getFakePieChartData()}
 			<div class="grid place-content-center p-4">
@@ -108,5 +109,4 @@
 			</span>
 		{/await}
 	</section>
-
 {/if}
