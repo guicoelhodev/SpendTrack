@@ -1,6 +1,4 @@
 <script module lang="ts">
-	import SolarArrowLeftLinear from '~icons/solar/arrow-left-linear';
-
 	export type TDrawerActions = {
 		createNewUser: boolean;
 		user: TUser | null
@@ -29,13 +27,13 @@
 
 	const props: TProps = $props()
 
-	let drawerActions: TDrawerActions = $state({
+	let loginActions: TDrawerActions = $state({
 		createNewUser: false,
 		user: null
 	});
 
 	function handleDrawerActions(partial: Partial<TDrawerActions>){
-		return drawerActions = Object.assign(drawerActions, partial)
+		return loginActions = Object.assign(loginActions, partial)
 	}
 
 	async function onCreateUser(user: TUser){
@@ -53,8 +51,8 @@
 	}
 
 	function getFocusUser(user: TUser){
-		if(!drawerActions.user) return $session?.userId === user.id;
-		return drawerActions.user.id === user.id
+		if(!loginActions.user) return $session?.userId === user.id;
+		return loginActions.user.id === user.id
 	}
 
 	const users = liveQuery(async() => await userService.getAllUsers())
@@ -62,7 +60,7 @@
 
 <Modal  title='Select a user to sign in' onClose={props.onCancel}>
 	<div class="min-w-[400px]">
-		{#if !drawerActions.createNewUser}
+		{#if !loginActions.createNewUser}
 			<section class="flex flex-col gap-4">
 
 			<ul class="flex flex-col gap-2">
@@ -90,10 +88,10 @@
 			</section>
 
 			<footer>
-				{#if !props.isLogged && drawerActions.user?.id}
-					<button onclick={() => props.onConnect(drawerActions.user!)} 
+				{#if !props.isLogged && loginActions.user?.id}
+					<button onclick={() => props.onConnect(loginActions.user!)} 
 						class="bg-green-600 w-full p-2 rounded-md">
-						Sign as {drawerActions.user?.nickname}
+						Sign as {loginActions.user?.nickname}
 					</button>
 				{/if}
 

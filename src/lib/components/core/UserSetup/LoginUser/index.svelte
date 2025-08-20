@@ -10,16 +10,15 @@
 </script>
 
 <script lang="ts">
-	import DrawerLogin from "./DrawerLogin/index.svelte";
-	import { application } from "$lib/stores/application.svelte";
 	import type { TUser } from '$lib/api/core/models/User';
 	import { SessionService } from '$lib/api/application/presentation/SessionService';
+	import UserLoginModal from './UserLoginModal/index.svelte';
 	import { liveQuery } from 'dexie';
 
 	const sessionService = new SessionService();
 	const session = liveQuery(async() => await sessionService.getSession(1));
 
-	let showDrawerModal = $state(false)
+	let showUserLoginModal = $state(false)
 
 	async function onConnect(user: TUser){
 		try {
@@ -32,7 +31,7 @@
 				nickname: user.nickname
 			})
 
-			showDrawerModal = false
+			showUserLoginModal = false
 		}catch (error) {
 			console.error((error as Error).message)
 		}
@@ -45,7 +44,7 @@
 			console.error((error as Error).message)
 		}
 
-showDrawerModal = false
+showUserLoginModal = false
 	}
 
 
@@ -61,12 +60,12 @@ showDrawerModal = false
 	data-open={isLogged()}
 >
 
-	{#if showDrawerModal}
-		<DrawerLogin 
+	{#if showUserLoginModal}
+		<UserLoginModal 
 			isLogged={isLogged()}
 			onDisconnect={onDisconnect}
 			onConnect={onConnect}
-			onCancel={() => showDrawerModal = false}
+			onCancel={() => showUserLoginModal = false}
 		/>
 	{/if}
 
@@ -83,11 +82,11 @@ showDrawerModal = false
 	{/if}
 
 	<button
-		onclick={() => showDrawerModal = !showDrawerModal}
+		onclick={() => showUserLoginModal = !showUserLoginModal}
 		class="bg-background-primary p-2 rounded-full grid place-content-center"
 		aria-labelledby='logout-btn'
 	>
-	{#if showDrawerModal}
+	{#if showUserLoginModal}
 		<SolarLogout2Bold />
 	{:else}
 		<SolarUserBold />
