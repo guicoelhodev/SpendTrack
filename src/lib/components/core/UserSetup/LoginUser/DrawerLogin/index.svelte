@@ -13,6 +13,7 @@
 	import { UserService } from '$lib/api/application/presentation/UserService';
 	import { liveQuery } from 'dexie';
 	import { SessionService } from '$lib/api/application/presentation/SessionService';
+	import Modal from '$lib/components/ui/Modal.svelte';
 
 	const userService = new UserService()
 	const sessionService = new SessionService()
@@ -59,68 +60,54 @@
 	const users = liveQuery(async() => await userService.getAllUsers())
 </script>
 
-<div class="drawer w-[360px] h-svh fixed top-0 right-0 bg-background-secondary p-4 flex flex-col justify-between">
-	{#if !drawerActions.createNewUser}
-		<section class="flex flex-col gap-4">
+<Modal  title='Select a user to sign in' onClose={props.onCancel}>
+	<div class="min-w-[400px]">
+		{#if !drawerActions.createNewUser}
+			<section class="flex flex-col gap-4">
 
-		<header class="flex items-center gap-4">
-			<button onclick={props.onCancel} aria-labelledby="goback">
-				<SolarArrowLeftLinear />
+			<ul class="flex flex-col gap-2">
+				{#if users}
+					{#each $users as user}
+						<li class="w-full">
+							<button 
+									class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
+									class:bg-background-primary={getFocusUser(user)}
+									onclick={() => handleDrawerActions({ user })}
+								>
+								{user.name}
+							</button>
+						</li>
+					{/each}
+				{/if}
+			</ul>
+
+			<button
+				onclick={() => handleDrawerActions({ createNewUser: true, user: null })}
+				class="transition-colors text-text-secondary hover:underline hover:text-text-primary"
+			>
+					create new one
 			</button>
-			<h2 class="self-center font-semibold text-lg">Select a user to sign</h2>
-		</header>
-		<ul class="flex flex-col gap-2">
-			{#if users}
-				{#each $users as user}
-					<li class="w-full">
-						<button 
-								class="text-start transition-colors p-4 rounded-md w-full hover:bg-background-primary disabled:cursor-not-allowed"
-								class:bg-background-primary={getFocusUser(user)}
-								onclick={() => handleDrawerActions({ user })}
-							>
-							{user.name}
-						</button>
-					</li>
-				{/each}
-			{/if}
-		</ul>
+			</section>
 
-		<button
-			onclick={() => handleDrawerActions({ createNewUser: true, user: null })}
-			class="transition-colors text-text-secondary hover:underline hover:text-text-primary"
-		>
-				create new one
-		</button>
-		</section>
+			<footer>
+				{#if !props.isLogged && drawerActions.user?.id}
+					<button onclick={() => props.onConnect(drawerActions.user!)} 
+						class="bg-green-600 w-full p-2 rounded-md">
+						Sign as {drawerActions.user?.nickname}
+					</button>
+				{/if}
 
-		<footer>
-			{#if !props.isLogged && drawerActions.user?.id}
-				<button onclick={() => props.onConnect(drawerActions.user!)} 
-					class="bg-green-600 w-full p-2 rounded-md">
-					Sign as {drawerActions.user?.nickname}
-				</button>
-			{/if}
+				{#if props.isLogged && $session?.userId}
+					<button onclick={props.onDisconnect}
+						class="bg-red w-full p-2 rounded-md">
+						Disconnect
+					</button>
+				{/if}
 
-			{#if props.isLogged && $session?.userId}
-				<button onclick={props.onDisconnect}
-					class="bg-red w-full p-2 rounded-md">
-					Disconnect
-				</button>
-			{/if}
+			</footer>
+		{:else}
+			<CreateUser onCreateUser={onCreateUser} />
+		{/if}
+	</div>
 
-		</footer>
-	{:else}
-		<CreateUser onCreateUser={onCreateUser} />
-	{/if}
-</div>
-
-<style>
-	.drawer {
-		animation: show 300ms ease-in
-	}
-
-	@keyframes show {
-		from { transform: translateX(100%); }
-		to { transform: translateX(0); }
-	}
-</style>
+</Modal>

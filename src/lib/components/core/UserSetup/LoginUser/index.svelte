@@ -19,6 +19,8 @@
 	const sessionService = new SessionService();
 	const session = liveQuery(async() => await sessionService.getSession(1));
 
+	let showDrawerModal = $state(false)
+
 	async function onConnect(user: TUser){
 		try {
 			const expiresAt = new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString();
@@ -30,7 +32,7 @@
 				nickname: user.nickname
 			})
 
-			application.isDrawer = false
+			showDrawerModal = false
 		}catch (error) {
 			console.error((error as Error).message)
 		}
@@ -43,7 +45,7 @@
 			console.error((error as Error).message)
 		}
 
-		application.isDrawer = false
+showDrawerModal = false
 	}
 
 
@@ -59,12 +61,12 @@
 	data-open={isLogged()}
 >
 
-	{#if application.isDrawer}
+	{#if showDrawerModal}
 		<DrawerLogin 
 			isLogged={isLogged()}
 			onDisconnect={onDisconnect}
 			onConnect={onConnect}
-			onCancel={() => application.isDrawer = false}
+			onCancel={() => showDrawerModal = false}
 		/>
 	{/if}
 
@@ -81,11 +83,11 @@
 	{/if}
 
 	<button
-		onclick={() => application.isDrawer = !application.isDrawer}
+		onclick={() => showDrawerModal = !showDrawerModal}
 		class="bg-background-primary p-2 rounded-full grid place-content-center"
 		aria-labelledby='logout-btn'
 	>
-	{#if application.isDrawer}
+	{#if showDrawerModal}
 		<SolarLogout2Bold />
 	{:else}
 		<SolarUserBold />
