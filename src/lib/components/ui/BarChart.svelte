@@ -6,6 +6,7 @@
 		data: Array<Record<string, any>>
     axisName: { x: string; y: string };
 		height?: string;
+		hexColor?: string
 	}
 	const props: TProps = $props()
 </script>
@@ -16,6 +17,6 @@
 		data={props.data}
 		x={props.axisName.x}
 		y={props.axisName.y}
-		cRange={[application.chartBarColor]}
+		cRange={[props.hexColor ?? application.chartBarColor]}
 	/>
 </div>

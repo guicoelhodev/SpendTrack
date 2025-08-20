@@ -10,7 +10,6 @@
 
 </script>
 
-
 <header class="flex gap-4 items-center justify-between p-4">
 	{#if amountList}
 		{@const total = $amountList?.reduce((acc, curr) => acc + curr.amount,0)}
