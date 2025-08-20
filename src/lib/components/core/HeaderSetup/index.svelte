@@ -1,10 +1,10 @@
 <script>
-	import { application } from "$lib/stores/application.svelte";
 	import CreateExpanseModal from "$lib/components/core/CreateExpanseModal/index.svelte"
 	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
 	import { liveQuery } from "dexie";
 
 	const expanseAmountService = new ExpanseAmountService();
+	let showModal = $state(false);
 
 	const amountList = liveQuery(async() => await expanseAmountService.getByMonth('august_2025'))
 
@@ -17,13 +17,13 @@
 		<p class="text-3xl font-semibold text-text-primary">TOTAL: {total}</p>
 	{/if}
 	<button 
-		onclick={() => application.openModal = 'addExpanse'}
+		onclick={() => showModal = true}
 		class='border border-green-300 text-green-300 p-2 rounded-md'
 		>
 			Add Expanse
 	</button>
 </header>
 
-{#if application.openModal === 'addExpanse'}
-	<CreateExpanseModal	 onClose={() => application.openModal = 'idle' }/>
+{#if showModal}
+	<CreateExpanseModal	 onClose={() => showModal = false }/>
 {/if}
