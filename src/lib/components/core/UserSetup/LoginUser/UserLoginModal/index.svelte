@@ -87,7 +87,7 @@
 			</button>
 			</section>
 
-			<footer>
+			<footer class="pt-4">
 				{#if !props.isLogged && loginActions.user?.id}
 					<button onclick={() => props.onConnect(loginActions.user!)} 
 						class="bg-green-600 w-full p-2 rounded-md">
