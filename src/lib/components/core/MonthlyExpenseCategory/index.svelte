@@ -89,18 +89,23 @@
 		</ul>
 	</section>
 	{:else}
-	<section>
+	<section class="text-center">
 		{#await getFakePieChartData()}
 			<div class="grid place-content-center p-4">
 				<SolarClockCircleLineDuotone width='2rem' height='2rem' />
 			</div>
 		{:then fakeData} 
+
 			<PieChart
 				data={fakeData} 
 				value='amount'
 				key='categoryName'
 				height='300px'
 			/>
+
+			<span class="text-red">
+					This is a fake chart. Add Expanse to get real data
+			</span>
 		{/await}
 	</section>
 
