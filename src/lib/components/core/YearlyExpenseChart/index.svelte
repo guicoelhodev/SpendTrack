@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
 	import BarChart from "$lib/components/ui/BarChart.svelte";
+	import { liveQuery } from "dexie";
 
+	const expanseAmountService = new ExpanseAmountService();
 	const barData = [
 		{
 			"date": new Date('2025-08-06T03:00:00.000Z'),
@@ -54,6 +57,30 @@
 		}
 	]
 
+	const expanses = liveQuery(async() => {
+		return await expanseAmountService.getAllExpanseAmountByYear(2025)
+	})
+
 </script>
 
-<BarChart height='400px' data={barData} axisName={{ x: 'date', y: 'value'}}/>
+{#if $expanses?.length}
+	<BarChart
+		height='400px'
+		data={$expanses ?? []}
+		axisName={{ x: 'monthKey', y: 'amount'}}
+	/>
+	<p class="text-center">Expanses by month</p>
+	{:else if !!$expanses}
+	<div class="h-full grid place-content-center">
+		<p class="text-text-secondary text-lg">
+			No expenses recorded for this year
+		</p>
+	</div>
+{/if}
+
+
+
+
+
+
+

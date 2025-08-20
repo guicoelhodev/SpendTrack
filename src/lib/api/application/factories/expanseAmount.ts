@@ -3,6 +3,7 @@ import { ExpanseAmountDexieRepository } from "$lib/api/adapters/driven/repositor
 import { AddExpanseAmountUseCase } from "$lib/api/core/useCases/expanseAmount/AddExpanseAmountUseCase";
 import { GetExpanseAmountByCategory } from "$lib/api/core/useCases/expanseAmount/GetExpanseAmountByCategory";
 import { GetExpanseAmountByMonthUseCase } from "$lib/api/core/useCases/expanseAmount/GetExpanseAmountByMonthUseCase";
+import { GetExpanseAmountByYearUseCase } from "$lib/api/core/useCases/expanseAmount/GetExpanseAmountByYearUseCase";
 
 const expanseAmountRepository = new ExpanseAmountDexieRepository(db);
 
@@ -16,4 +17,8 @@ export function makeGetExpanseAmountByMonth(){
 
 export function makeGetExpanseAmountByCategory(){
 	return new GetExpanseAmountByCategory(expanseAmountRepository)
+}
+
+export function makeGetExpansesAmountByYear(){
+	return new GetExpanseAmountByYearUseCase(expanseAmountRepository)
 }

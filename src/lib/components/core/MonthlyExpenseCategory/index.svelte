@@ -88,6 +88,7 @@
 				</li>
 			{/each}
 		</ul>
+		<p class="text-text-primary text-center">Expanses by category</p>
 	</section>
 	{:else if !!$expanseAmountList}
 	<section class="text-center">

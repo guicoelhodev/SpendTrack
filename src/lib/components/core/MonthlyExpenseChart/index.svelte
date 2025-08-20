@@ -48,7 +48,7 @@
 			axisName={{ x: 'date', y: 'amount'}}
 			height={'300px'}
 		/>
-		<span>Expanse by day</span>
+		<span>Expanses by day</span>
 	{:else if !!$expanseAmountList}
 		<div class="flex flex-col gap-2 h-full">
 			{#await getFakeChart()}

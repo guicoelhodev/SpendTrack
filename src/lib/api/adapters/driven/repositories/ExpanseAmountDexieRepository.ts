@@ -15,4 +15,14 @@ export class ExpanseAmountDexieRepository implements ExpanseAmountRepository {
 			.where({ monthIndex })
 			.toArray()
 	}
+
+	async getExpanseByYear(year: number){
+		const start = new Date(year, 0, 1).toISOString();
+		const end = new Date(year + 1, 0, 1).toISOString();
+
+		return await this.database.expanseAmount
+			.where('createdAt')
+			.between(start,end)
+			.toArray()
+	}
 }
