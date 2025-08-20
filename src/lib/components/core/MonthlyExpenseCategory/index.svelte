@@ -2,6 +2,7 @@
 	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
 	import { ExpanseCategoryService } from "$lib/api/application/presentation/ExpanseCategoryService";
 	import PieChart from "$lib/components/ui/PieChart.svelte";
+	import SolarClockCircleLineDuotone from '~icons/solar/clock-circle-line-duotone';
 	import { liveQuery } from "dexie";
 
   const expanseAmountService = new ExpanseAmountService()
@@ -32,9 +33,35 @@
 		return `- ${Math.round(amount * 100)}%`
 	}
 
+	const getFakePieChartData = $derived(async() => {
+
+		const categories = await expanseCategory.getList();
+    
+		let data: { 
+			amount: number; 
+			categoryName: string
+			color: string
+		}[] = []
+
+		categories.forEach(c => {
+			const[min,max] = [50,100];
+			const[minColor, maxColor] = [20, 90]
+
+			const randomAmount = (Math.random() * (max - min) + min).toFixed(2)
+			const randomOpacity= Math.round((Math.random() * (maxColor - minColor) + minColor))
+
+      data.push({ 
+				amount: Number(randomAmount),
+				categoryName: c.name, color: '#6e6e6e' + randomOpacity
+			})
+		})
+		
+		return data
+	})
+
 </script>
 
-{#if expanseAmountList}
+{#if $expanseAmountList?.length}
 	{@const total = getTotal()}
 	<section class="flex flex-col gap-4">
 			<PieChart
@@ -61,4 +88,20 @@
 			{/each}
 		</ul>
 	</section>
+	{:else}
+	<section>
+		{#await getFakePieChartData()}
+			<div class="grid place-content-center p-4">
+				<SolarClockCircleLineDuotone width='2rem' height='2rem' />
+			</div>
+		{:then fakeData} 
+			<PieChart
+				data={fakeData} 
+				value='amount'
+				key='categoryName'
+				height='300px'
+			/>
+		{/await}
+	</section>
+
 {/if}

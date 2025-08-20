@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
 	import BarChart from "$lib/components/ui/BarChart.svelte";
+	import SolarClockCircleLineDuotone from '~icons/solar/clock-circle-line-duotone';
 	import { liveQuery } from "dexie";
 
 	const expanseAmountService = new ExpanseAmountService();
@@ -16,7 +17,7 @@
 		}).format(date);
 	}
 
-	function getFakeChart(){
+	async function getFakeChart(){
 		const date = new Date();
 
 		const fakeChartData: Record<'date' | 'amount', string>[] = [];
@@ -48,14 +49,22 @@
 			height={'300px'}
 		/>
 	{:else}
-		<div class="flex flex-col gap-2">
-			<BarChart
-				data={getFakeChart() ?? []}
-				axisName={{ x: 'date', y: 'amount'}}
-				height={'300px'}
-				hexColor='#6e6e6e'
-			/>
-			<span class="text-red text-center">This is a fake chart. Add Expanse to get real data</span>
+		<div class="flex flex-col gap-2 h-full">
+			{#await getFakeChart()}
+				<div class="flex-1 grid place-content-center p-4">
+					<SolarClockCircleLineDuotone width='2rem' height='2rem' />
+				</div>
+			{:then fakeChart} 
+				<BarChart
+					data={fakeChart}
+					axisName={{ x: 'date', y: 'amount'}}
+					height={'300px'}
+					hexColor='#6e6e6e'
+				/>
+				<span class="text-red text-center">
+						This is a fake chart. Add Expanse to get real data
+				</span>
+			{/await}
 		</div>
 	{/if}
 </article>
