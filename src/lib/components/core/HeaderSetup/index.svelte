@@ -34,11 +34,18 @@
 <header class="flex gap-4 items-center justify-between p-4">
 	{#if amountList}
 		{@const total = $amountList?.reduce((acc, curr) => acc + curr.amount,0)}
-		<p class="text-3xl font-semibold text-text-primary">TOTAL: {formatCurrency(total)}</p>
+
+		<aside class="flex flex-col sm:flex-row gap-2">
+			<p class="text-lg sm:text-3xl font-semibold text-text-primary">TOTAL</p>
+			<p class="text-lg sm:text-3xl font-semibold text-text-primary">
+				{formatCurrency(total)}
+			</p>
+
+		</aside>
 	{/if}
 	<button 
 		onclick={() => showModal = true}
-		class='border border-green-300 text-green-300 p-2 rounded-md'
+		class='border border-green-300 text-green-300 p-2 rounded-md text-sm sm:text-base'
 		>
 			Add Expanse
 	</button>
