@@ -4,6 +4,7 @@
 	import Modal from '$lib/components/ui/Modal.svelte';
 	import { liveQuery } from 'dexie';
 	import SolarHistoryBold from '~icons/solar/history-bold';
+	import ExpanseDayCard from './ExpanseDayCard.svelte';
 
 	let showModal = $state(true);
 	const expanseAmountService = new ExpanseAmountService();
@@ -12,12 +13,16 @@
 
 	const expanseList = liveQuery(async() => {
 		const session = await sessionService.getSession();
-		if(!session) return []
+		if(!session) return {}
 
 		return expanseAmountService.getExpanseListByYear(2025, session.userId)
 	})
 
-	$inspect($expanseList)
+	const getExpanseKeys = $derived(() => {
+	  return Object.keys($expanseList ?? {})
+	})
+
+	$inspect(getExpanseKeys())
 </script>
 
 <button onclick={() => showModal = true } title="View history">
@@ -26,8 +31,10 @@
 
 {#if showModal}
 	<Modal title="History expanse" onClose={() => showModal = false}>
-		<div class="w-[calc(100svh-2rem)] max-w-[40rem]">
-
-		</div>
+		<ul class="w-[calc(100svh-5rem)] max-w-[40rem] flex flex-col gap-4">
+			{#each getExpanseKeys() as dayKey}
+				<ExpanseDayCard expanseDay={dayKey} list={$expanseList[dayKey]}/>
+			{/each}
+		</ul>
 	</Modal>
 {/if}

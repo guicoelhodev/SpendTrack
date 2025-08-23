@@ -4,6 +4,7 @@
 	import { liveQuery } from "dexie";
 	import { SessionService } from "$lib/api/application/presentation/SessionService";
 	import { ApplicationService } from "$lib/api/application/presentation/ApplicationService";
+	import { formatCurrency } from "$lib/utils/formatCurrency";
 
 	const expanseAmountService = new ExpanseAmountService();
 	const sessionService = new SessionService();
@@ -20,15 +21,6 @@
 		return await expanseAmountService.getByMonth('august_2025', session.userId )
 	})
 
-	function formatCurrency(total: number){
-		const location = $applicationDB?.currencyLocation ?? 'en-US';
-		const currency = $applicationDB?.currencyType ?? 'USD';
-    return Intl.NumberFormat(location, { 
-			style: 'currency',
-			currency: currency
-		}).format(total) 
-	}
-
 </script>
 
 <header class="flex gap-4 items-center justify-between p-4">
@@ -38,7 +30,11 @@
 		<aside class="flex flex-col sm:flex-row gap-2">
 			<p class="text-lg sm:text-3xl font-semibold text-text-primary">TOTAL</p>
 			<p class="text-lg sm:text-3xl font-semibold text-text-primary">
-				{formatCurrency(total)}
+				{formatCurrency({
+					total: total,
+					currencyLocation: $applicationDB?.currencyLocation,
+					currencyType: $applicationDB?.currencyType,
+				})}
 			</p>
 
 		</aside>
