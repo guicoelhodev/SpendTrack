@@ -15,7 +15,7 @@
 	import { application } from '$lib/stores/application.svelte';
 
 	const sessionService = new SessionService();
-	const session = liveQuery(async() => await sessionService.getSession(1) ?? null);
+	const session = liveQuery(async() => await sessionService.getSession() ?? null);
 
 	async function onConnect(user: TUser){
 		try {

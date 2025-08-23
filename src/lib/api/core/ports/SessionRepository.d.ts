@@ -5,5 +5,5 @@ export type TUpdateSession = Omit<TSession, 'id'>
 export interface SessionRepository {
 	updateSession: (sessionIndex: number, data: TUpdateSession) => Promise<void>
 	deleteSession: (sessionIndex: number) => Promise<void>
-	getSession: (sessionIndex: number) => Promise<TSession | null>
+	getSession: () => Promise<TSession | null>
 }

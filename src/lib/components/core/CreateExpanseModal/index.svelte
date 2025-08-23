@@ -37,7 +37,7 @@
 	let formErrors: Record<keyof TExpanseForm, string> = $state(defaultError);
 
 	async function onSubmitForm(formData: TExpanseForm){
-		const session = await sessionService.getSession(1);
+		const session = await sessionService.getSession();
 
 		await expanseAmountService.add({
 			amount: formData.total,

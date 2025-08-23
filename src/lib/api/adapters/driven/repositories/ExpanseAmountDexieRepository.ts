@@ -23,9 +23,9 @@ export class ExpanseAmountDexieRepository implements ExpanseAmountRepository {
 		const end = new Date(year + 1, 0, 1).toISOString();
 
 		return await this.database.expanseAmount
-			.where('createdAt')
-			.between([userId,start], [userId,end])
-			.and(r => r.userId === userId)
+			.where('userId')
+			.equals(userId)
+			.and(r => r.createdAt >= start && r.createdAt < end)
 			.toArray()
 	}
 }

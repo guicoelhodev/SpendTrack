@@ -4,12 +4,14 @@
 	import SolarClockCircleLineDuotone from '~icons/solar/clock-circle-line-duotone';
 	import { liveQuery } from "dexie";
 	import { SessionService } from "$lib/api/application/presentation/SessionService";
+	import { ApplicationService } from "$lib/api/application/presentation/ApplicationService";
 
 	const expanseAmountService = new ExpanseAmountService();
 	const sessionService = new SessionService();
+	const applicationService = new ApplicationService();
 
 	const expanseAmountList= liveQuery(async() => {
-		const session = await sessionService.getSession(1);
+		const session = await sessionService.getSession();
 
 		if(!session) return [];
 		return await expanseAmountService.getByMonth('august_2025', session.userId)
@@ -44,12 +46,17 @@
 		return fakeChartData
 	}
 
+	const applicationDB = liveQuery(async() => 
+		await applicationService.getApplication()
+	)
+
 </script>
 
 <article class="h-full text-center">
 	{#if $expanseAmountList?.length}
 		<BarChart
 			data={$expanseAmountList}
+			hexColor={$applicationDB?.chartBarColor}
 			axisName={{ x: 'date', y: 'amount'}}
 			height={'300px'}
 		/>

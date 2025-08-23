@@ -12,7 +12,7 @@ export class SessionService {
 		return await makeDeleteSessionFactory().execute(sessionIndex)
 	}
 
-	async getSession(sessionIndex: number){
-		return await makeGetSessionFactory().execute(sessionIndex)
+	async getSession(){
+		return await makeGetSessionFactory().execute()
 	}
 }

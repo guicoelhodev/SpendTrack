@@ -11,7 +11,7 @@
 	const sessionService = new SessionService();
 
 	const expanseAmountList = liveQuery(async() => {
-		const session = await sessionService.getSession(1);
+		const session = await sessionService.getSession();
 		if(!session) return [];
 
 		const list = await expanseAmountService

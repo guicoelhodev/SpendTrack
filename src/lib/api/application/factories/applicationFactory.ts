@@ -5,5 +5,5 @@ import { GetApplicationUseCase } from "$lib/api/core/useCases/application/GetApp
 const applicationRepository = new ApplicationDexieRepository(db);
 
 export function makeApplicationFactory(){
-	return new GetApplicationUseCase(applicationRepository)
+	return new GetApplicationUseCase(applicationRepository).execute()
 }

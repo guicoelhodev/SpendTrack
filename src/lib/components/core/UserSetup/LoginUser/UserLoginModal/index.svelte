@@ -16,7 +16,7 @@
 	const userService = new UserService()
 	const sessionService = new SessionService()
 
-	const session = liveQuery(async() => await sessionService.getSession(1));
+	const session = liveQuery(async() => await sessionService.getSession());
 
 	type TProps = {
 		isLogged: boolean

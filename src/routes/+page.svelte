@@ -11,7 +11,7 @@
 
 	const sessionService = new SessionService();
 
-	const session = liveQuery(async() => await sessionService.getSession(1) ?? null);
+	const session = liveQuery(async() => await sessionService.getSession() ?? null);
 
 	const isValid = $derived(() => {
 		if(!$session) return false;
