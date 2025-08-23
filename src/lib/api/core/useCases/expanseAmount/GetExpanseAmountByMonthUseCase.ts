@@ -13,18 +13,13 @@ export class GetExpanseAmountByMonthUseCase {
 			.getExpanseByMonth(indexMonth, userId)
 
 		listByMonth.forEach(i => {
-			const isoDate = new Intl.DateTimeFormat('en-US', {
-					day: '2-digit',
-					month: '2-digit'
-				}).format(new Date(i.createdAt))
+			const isoDate = new Date(i.createdAt).toISOString()
 
 			const total = (amountMap.get(isoDate) ?? 0) + i.amount
 			amountMap.set(isoDate, total)
 		});
 
-    
-
-		const data: GetList[] = [];
+		let data: GetList[] = [];
 
 		amountMap.keys().forEach(key => {
 			data.push({
@@ -32,6 +27,10 @@ export class GetExpanseAmountByMonthUseCase {
 				amount: amountMap.get(key)!
 			})
 		});
+
+		data = data.sort((a,b) => {
+			return new Date(a.date).getTime() - new Date(b.date).getTime()
+		})
 
 		return data
 	}
