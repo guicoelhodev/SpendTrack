@@ -71,7 +71,7 @@
 				return formErrors[key] = ''
 			})
 		}}
-		class="flex flex-col gap-4 w-[30rem]"
+		class="flex flex-col gap-4 sm:w-[30rem]"
 	>
 		<article class="flex flex-col gap-2">
 			<label class="text-text-primary" for='category-select'>

@@ -62,13 +62,13 @@
 	title={props.isLogged ? 'Disconnect user' : 'Select a user to sign in'}
 	onClose={props.onCancel}
 >
-	<div class="min-w-[400px]">
+	<div class="sm:min-w-[400px]">
 		{#if props.isLogged}
 			<p>Please sign out first to log in with another profile.</p>
 		{/if}
 
 		{#if !loginActions.createNewUser}
-			<section class="flex flex-col gap-4">
+			<section class="flex flex-col gap-4 w-[calc(100svw-3rem)]">
 
 			{#if !props.isLogged}
 				<ul class="flex flex-col gap-2">

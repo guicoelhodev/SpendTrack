@@ -33,7 +33,7 @@
 			await categoryService.add({ 
 				hexColor: newColor.hexColor,
 				name: newColor.name,
-				isDefault: false
+				isDefault: false,
 			});
 
 			return newColor.name = ''
@@ -59,15 +59,19 @@
 			<li class="flex items-center gap-4 justify-between">
 				{category.name}
 				<span class="h-1 flex-1 border-b border-dashed"></span>
-				<input
-					type="color"
-					class="w-8 h-4"
-					value={category.hexColor}
-					onchange={async(e) => {
-						const hexColor = (e as any).target.value;
-						await handleColor(category.id!, hexColor)
-					}}
-				/>
+				<label 
+					for={`category_input_${category.id}`} class="p-2 cursor-pointer">
+					<input
+						id={`category_input_${category.id}`}
+						type="color"
+						class="w-6 h-6 cursor-pointer"
+						value={category.hexColor}
+						onchange={async(e) => {
+							const hexColor = (e as any).target.value;
+							await handleColor(category.id!, hexColor)
+						}}
+					/>
+				</label>
 
 				<div class="w-4">
 					{#if !category.isDefault}
@@ -96,11 +100,15 @@
 			bind:value={newColor.name}
 		/>
 
-		<input
-			type="color"
-			bind:value={newColor.hexColor}
-			class="w-12 h-6"
-		/>
+		<label 
+			for='create_category' class="p-2 cursor-pointer">
+			<input
+				id='create_category'
+				type="color"
+				class="w-6 h-6 cursor-pointer"
+				bind:value={newColor.hexColor}
+			/>
+		</label>
 
 		<button
 			class="text-text-secondary border p-2 rounded-full"

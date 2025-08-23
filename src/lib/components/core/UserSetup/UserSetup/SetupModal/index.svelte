@@ -31,23 +31,24 @@
 </script>
 
 <Modal title='Application preferences' onClose={props.onClose}>
-	<div class="flex divide-x-1 divide-text-secondary">
-		<ul class="pr-4 flex flex-col">
+	<div class="flex flex-col items-stretch sm:flex-row sm:divide-x-1 sm:divide-text-secondary w-full">
+		<ul class="flex pr-4 justify-center sm:justify-start sm:flex-col">
 			{#each menuOptions as option}
 				{@const Icon = option.icon}
 				<button 
-					class="transition-all flex gap-2 items-center p-2 text-text-secondary rounded-md text-nowrap"
+					title={option.name}
+					class="transition-all flex gap-2 items-center p-4 sm:p-2 text-text-secondary rounded-md text-nowrap"
 					class:text-text-primary={currentPane === option.key}
 					class:text-text-secondary={currentPane !== option.key}
 					onclick={() => currentPane = option.key}
 				>
 					<Icon />
-					{option.name}
+					<span class="hidden sm:block">{option.name}</span>
 				</button>
 			{/each}
 		</ul>
 
-		<section class="pl-4 w-[400px]">
+		<section class="sm:pl-4 flex-1 sm:w-[400px]">
 			{#if currentPane}
 				{@const Component = paneViews[currentPane]}
 				<Component />

@@ -25,7 +25,7 @@
 
 		{#if !isValid()}
 			<div
-				class="absolute top-0 left-0 w-svw h-svh backdrop-blur-sm z-30"
+				class="fixed top-0 left-0 w-svw h-svh backdrop-blur-sm z-30"
 			>
 				<section class="size-full grid place-content-center">
 					<article class="flex flex-col gap-4">

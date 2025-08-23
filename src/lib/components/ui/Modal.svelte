@@ -12,7 +12,7 @@
 
 <div class="fixed top-0 left-0 w-svw h-svh backdrop-blur-md z-30 grid place-content-center">
 
-	<section class="wrapper max-h-[calc(100svh-5rem)] max-w-[calc(100svw-5rem)] h-auto overflow-auto bg-background-secondary p-4 rounded-md flex flex-col gap-4">
+	<section class="wrapper max-h-[calc(100svh-5rem)] max-w-[calc(100svw-2rem)] h-auto overflow-auto bg-background-secondary p-4 rounded-md flex flex-col gap-4">
 		
 		<header class="flex justify-between gap-4 items-center">
 			<h3 class="text-lg font-semibold">{props.title}</h3>

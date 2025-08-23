@@ -3,5 +3,4 @@ export type TExpanseCategory = {
 	hexColor: string;
 	name: string;
 	isDefault: boolean;
-	mounthIndex: string;
 }
