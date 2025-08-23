@@ -14,7 +14,7 @@ const db = new Dexie('SpendTrack_DB') as Dexie & {
 	session: EntityTable<TSession, 'id'>
 	expanseCategory: EntityTable<TExpanseCategory, 'id'>
 	expanseAmount: EntityTable<ExpanseAmount, 'id'>
-	application: EntityTable<Application>
+	application: EntityTable<Application, 'id'>
 };
 
 // Schema declaration:
