@@ -28,4 +28,8 @@ export class ExpanseAmountDexieRepository implements ExpanseAmountRepository {
 			.and(r => r.createdAt >= start && r.createdAt < end)
 			.toArray()
 	}
+
+	async bulkDelete(deleteListId: number[]){
+		return await this.database.expanseAmount.bulkDelete(deleteListId)
+	}
 }

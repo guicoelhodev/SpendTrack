@@ -1,6 +1,7 @@
 import { db } from "$lib/api/adapters/driven/datasource/db"
 import { ExpanseAmountDexieRepository } from "$lib/api/adapters/driven/repositories/ExpanseAmountDexieRepository"
 import { AddExpanseAmountUseCase } from "$lib/api/core/useCases/expanseAmount/AddExpanseAmountUseCase";
+import { BulkDeleteListUseCase } from "$lib/api/core/useCases/expanseAmount/BulkDeleteListUseCase";
 import { GetExpanseAmountByCategory } from "$lib/api/core/useCases/expanseAmount/GetExpanseAmountByCategory";
 import { GetExpanseAmountByMonthUseCase } from "$lib/api/core/useCases/expanseAmount/GetExpanseAmountByMonthUseCase";
 import { GetExpanseAmountByYearUseCase } from "$lib/api/core/useCases/expanseAmount/GetExpanseAmountByYearUseCase";
@@ -26,4 +27,8 @@ export function makeGetExpansesAmountByYear(){
 
 export function makeGetExpanseListByYear(){
 	return new GetExpanseListByYearUseCase(expanseAmountRepository)
+}
+
+export function makeBulkDeleteList(){
+	return new BulkDeleteListUseCase(expanseAmountRepository)
 }

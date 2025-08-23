@@ -34,7 +34,7 @@
 	};
 </script>
 
-<li class="flex flex-col w-full">
+<li class="flex flex-col flex-1">
 
 	<header class="flex gap-2 items-end justify-between">
 		<h3 class="text-lg font-semibold">

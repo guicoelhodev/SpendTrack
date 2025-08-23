@@ -5,7 +5,7 @@
 		deleteList: number[]
 	}
 
-	export type THandleActions = (partial: TActions) => void;
+	export type THandleActions = (partial: Partial<TActions>) => void;
 </script>
 
 <script lang="ts">
@@ -43,8 +43,13 @@
 	});
 
 	async function bulkDelete(){
+		if(!actions.deleteList.length)
+			return actions.action = 'idle'
+
 		actions.requestState = 'loading';
-		await new Promise(resolve => setTimeout(resolve, 1000 ));
+
+		await new Promise(resolve => setTimeout(resolve, 500 ));
+		await expanseAmountService.bulkDeleteList(actions.deleteList)
 
 	  return actions = { 
 			action: 'idle',
@@ -61,7 +66,7 @@
 {#if showModal}
 	<Modal title="History expanse" onClose={() => showModal = false}>
 		<section class="relative">
-			<ul class="w-[calc(100svh-5rem)] max-w-[40rem] flex flex-col gap-4">
+			<ul class="w-[calc(100svw-5rem)] sm:max-w-[40rem] flex flex-col gap-4">
 				{#each getExpanseKeys() as dayKey}
 					<ExpanseDayCard
 						expanseDay={dayKey}
