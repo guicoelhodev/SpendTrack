@@ -9,15 +9,15 @@ export class ExpanseAmountService {
 		return await makeAddExpanseAmount().execute(data)
 	}
 
-	async getByMonth(indexMonth: string){
-		return await makeGetExpanseAmountByMonth().execute(indexMonth)
+	async getByMonth(indexMonth: string, userId: string){
+		return await makeGetExpanseAmountByMonth().execute(indexMonth, userId)
 	}
 
-	async getAmountByCategory(indexMonth: string){
-		return await makeGetExpanseAmountByCategory().execute(indexMonth)
+	async getAmountByCategory(indexMonth: string, userId: string){
+		return await makeGetExpanseAmountByCategory().execute(indexMonth, userId)
 	}
 
-	async getAllExpanseAmountByYear(year: number){
-		return await makeGetExpansesAmountByYear().execute(year)
+	async getAllExpanseAmountByYear(year: number, userId: string){
+		return await makeGetExpansesAmountByYear().execute(year, userId)
 	}
 }

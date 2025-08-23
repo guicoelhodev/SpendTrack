@@ -5,4 +5,5 @@ export type ExpanseAmount = {
   amount: number;
 	monthIndex: string;
 	createdAt: string;
+	userId: string;
 }

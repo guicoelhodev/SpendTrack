@@ -6,8 +6,9 @@ type TExpanseItem = Omit<ExpanseAmount, 'id'>
 export class GetExpanseAmountByCategory {
 	constructor(private expanseAmountRepository: ExpanseAmountRepository){};
 
-	async execute(indexMonth: string){
-		const list = await this.expanseAmountRepository.getExpanseByMonth(indexMonth)
+	async execute(indexMonth: string, userId: string){
+		const list = await this.expanseAmountRepository
+			.getExpanseByMonth(indexMonth, userId)
 
 		const amountCategory = new Map<string, TExpanseItem>([]);
 		

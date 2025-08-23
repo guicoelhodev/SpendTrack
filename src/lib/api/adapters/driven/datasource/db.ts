@@ -22,7 +22,7 @@ db.version(1).stores({
   users: 'id, name, nickname',
 	session: "++id, userId",
 	expanseCategory: "++id, &name",
-	expanseAmount: "++id, createdAt, monthIndex, categoryName",
+	expanseAmount: "++id, createdAt, userId, monthIndex, categoryName",
 	application: "++id"
 });
 

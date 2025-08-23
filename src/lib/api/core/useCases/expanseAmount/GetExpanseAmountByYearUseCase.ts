@@ -9,10 +9,10 @@ type TExpanseAmountReturn = {
 export class GetExpanseAmountByYearUseCase {
 	constructor(private expanseAmountRepository: ExpanseAmountRepository){};
 
-	async execute(year: number): Promise<TExpanseAmountReturn>{
+	async execute(year: number, userId: string): Promise<TExpanseAmountReturn>{
 		try {
 
-			const amount = await this.expanseAmountRepository.getExpanseByYear(year)
+			const amount = await this.expanseAmountRepository.getExpanseByYear(year, userId)
 			const amountByMonthMap = new Map<string, TExpanseAmountReturn[number]>();
 
 			amount.forEach(amount => {
