@@ -4,8 +4,11 @@
 	import type { ExpanseAmount } from "$lib/api/core/models/ExpanseAmount";
 	import { formatCurrency } from "$lib/utils/formatCurrency";
 	import { liveQuery } from "dexie";
+	import type { TActions, THandleActions,  } from "./index.svelte";
 
   type TProps = { 
+		action: TActions;
+		handleActions: THandleActions
 		expanseDay: string;
 		list: ExpanseAmount[]
 	}
