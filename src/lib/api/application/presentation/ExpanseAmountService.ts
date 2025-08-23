@@ -1,5 +1,5 @@
 import type { ExpanseAmount } from "$lib/api/core/models/ExpanseAmount";
-import { makeAddExpanseAmount, makeGetExpanseAmountByCategory, makeGetExpanseAmountByMonth, makeGetExpansesAmountByYear } from "../factories/expanseAmount";
+import { makeAddExpanseAmount, makeGetExpanseAmountByCategory, makeGetExpanseAmountByMonth, makeGetExpanseListByYear, makeGetExpansesAmountByYear } from "../factories/expanseAmount";
 
 type TAddExpanse = Omit<ExpanseAmount, 'monthIndex'>
 
@@ -19,5 +19,9 @@ export class ExpanseAmountService {
 
 	async getAllExpanseAmountByYear(year: number, userId: string){
 		return await makeGetExpansesAmountByYear().execute(year, userId)
+	}
+
+	async getExpanseListByYear(year: number, userId: string){
+		return await makeGetExpanseListByYear().execute(year, userId)
 	}
 }
