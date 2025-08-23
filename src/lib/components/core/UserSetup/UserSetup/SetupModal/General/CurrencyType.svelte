@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { application } from "$lib/stores/application.svelte";
+	import { ApplicationService } from "$lib/api/application/presentation/ApplicationService";
+	import { liveQuery } from "dexie";
+
+	const applicationService = new ApplicationService();
+	const applicationDB = liveQuery(async() => await applicationService.getApplication());
 
 	type TCurrency = {
 		location: string;
@@ -20,10 +24,12 @@
 	{#each currencyItems as currency}
 		<button 
 			class="px-2 border rounded-md font-semibold"
-			class:bg-text-primary={application.currencyType === currency.code}
-			onclick={() => {
-				application.currencyType = currency.code
-				application.currencyLocation = currency.location
+			class:bg-text-primary={$applicationDB?.currencyType === currency.code}
+			onclick={async() => {
+				await applicationService.updateApplication({
+					currencyLocation: currency.location,
+					currencyType: currency.code
+				})
 			}}
 		>
 			{currency.code}
