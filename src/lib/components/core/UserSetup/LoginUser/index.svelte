@@ -83,6 +83,7 @@
 		onclick={() => application.showLoginModal = !application.showLoginModal}
 		class="bg-background-primary p-2 rounded-full grid place-content-center"
 		aria-labelledby='logout-btn'
+		title="logIn user"
 	>
 	{#if application.showLoginModal}
 		<SolarLogout2Bold />

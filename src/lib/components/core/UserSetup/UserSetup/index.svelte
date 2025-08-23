@@ -6,6 +6,7 @@
 </script>
 
 <button
+	title="settings"
 	onclick={() => showModal = true }
 	class="bg-background-primary p-2 rounded-full grid place-content-center"
 	aria-labelledby="setup-user">
