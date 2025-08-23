@@ -78,7 +78,7 @@
 				height='300px'
 			/>
 
-		<ul class="mx-4 rounded-md border-2 border-background-secondary p-4 grid grid-cols-2 gap-4">
+		<ul class="mx-4 rounded-md border-2 border-background-secondary p-4 grid sm:grid-cols-2 gap-4">
 			{#each $expanseAmountList as expanseGroup}
 				<li class="flex gap-4 justify-between items-center">
 					<aside class="flex gap-2 items-center flex-wrap">

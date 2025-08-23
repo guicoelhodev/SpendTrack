@@ -21,7 +21,7 @@
 </script>
 
 <div class="relative transition-colors bg-background-primary text-text-primary h-svh w-svw">
-	<main class="w-full h-[calc(100%-5rem)] grid sm:grid-cols-2 gap-4 p-4 relative overflow-auto">
+	<main class="w-full h-[calc(100%-5rem)] grid sm:grid-cols-2 gap-4 p-2 sm:p-4 relative overflow-auto">
 
 		{#if !isValid()}
 			<div

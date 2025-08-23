@@ -50,6 +50,12 @@
 		await applicationService.getApplication()
 	)
 
+	function getFormat(createdAt:string){
+		return new Intl.DateTimeFormat('en-US', {
+			month: '2-digit',
+			day: '2-digit',
+		}).format(new Date(createdAt))
+	}
 </script>
 
 <article class="h-full text-center">
@@ -59,6 +65,11 @@
 			hexColor={$applicationDB?.chartBarColor}
 			axisName={{ x: 'date', y: 'amount'}}
 			height={'300px'}
+			props={{
+				xAxis: {
+					format: (d) => getFormat(d)
+				}
+			}}
 		/>
 		<span>Expanses by day</span>
 	{:else if !!$expanseAmountList}
