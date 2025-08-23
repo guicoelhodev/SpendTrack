@@ -1,6 +1,7 @@
 <script module lang="ts">
 	export type TActions = {
 		action: 'delete' | 'idle',
+		requestState: 'idle' | 'loading',
 		deleteList: number[]
 	}
 
@@ -17,6 +18,7 @@
 	import SolarTrashBin2Bold from '~icons/solar/trash-bin-2-bold';
 	import MaterialSymbolsClose from '~icons/material-symbols/close';
 	import MaterialSymbolsCheckRounded from '~icons/material-symbols/check-rounded';
+	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
 
 	let showModal = $state(true);
 
@@ -36,10 +38,20 @@
 
 	let actions: TActions = $state({
     action: 'idle',
-		deleteList: []
+		deleteList: [],
+		requestState: 'idle'
 	});
 
-	$inspect(actions.deleteList)
+	async function bulkDelete(){
+		actions.requestState = 'loading';
+		await new Promise(resolve => setTimeout(resolve, 1000 ));
+
+	  return actions = { 
+			action: 'idle',
+			deleteList: [],
+			requestState: 'idle'
+		}
+	}
 </script>
 
 <button onclick={() => showModal = true } title="View history">
@@ -76,19 +88,24 @@
 						<button 
 							class="border p-2 rounded-full text-red"
 							onclick={() => {
-								actions = { action: 'idle', delelteIdList: []}
+								actions = { ...actions, action: 'idle', deleteList: []}
 							}}
+							disabled={actions.requestState === 'loading'}
 						>
 							<MaterialSymbolsClose />
 						</button>
 
 						<button 
 							class="ml-2 border p-2 rounded-full text-green-600"
-							onclick={() => {
-								actions = { action: 'idle', delelteIdList: []}
-							}}
+							onclick={bulkDelete}
+							disabled={actions.requestState === 'loading'}
 						>
-							<MaterialSymbolsCheckRounded />
+
+							{#if actions.requestState === 'loading'} 
+								<LineMdLoadingLoop />
+							{:else}
+								<MaterialSymbolsCheckRounded />
+							{/if}
 						</button>
 				{/if}
 			</footer>
