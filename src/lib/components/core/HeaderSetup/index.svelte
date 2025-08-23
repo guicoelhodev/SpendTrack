@@ -13,13 +13,13 @@
 		const session = await sessionService.getSession();
 
 		if(!session) return [];
-		await expanseAmountService.getByMonth('august_2025', session.userId)
+		return await expanseAmountService.getByMonth('august_2025', session.userId )
 	})
 
 </script>
 
 <header class="flex gap-4 items-center justify-between p-4">
-	{#if $amountList?.length}
+	{#if amountList}
 		{@const total = $amountList?.reduce((acc, curr) => acc + curr.amount,0)}
 		<p class="text-3xl font-semibold text-text-primary">TOTAL: {total}</p>
 	{/if}
