@@ -8,11 +8,10 @@
 
   type TProps = { 
 		action: TActions;
-		handleActions: THandleActions
+		handleActions: THandleActios
 		expanseDay: string;
 		list: ExpanseAmount[]
 	}
-
 
 	const props: TProps = $props()
 	const applicationService = new ApplicationService();
@@ -27,8 +26,6 @@
 	});
 
 	function getColorCategoryItem(expanse: ExpanseAmount){
-
-		console.log(expanse)
 		const findCategory = $categories?.find(i => i.name === expanse.categoryName);
 
 		if(!findCategory || !findCategory.isDefault)
@@ -69,6 +66,25 @@
 				<p class="text-sm text-text-secondary">
 					{amount.amount}
 				</p>
+
+				{#if props.action.action === 'delete'}
+					<input
+						type="checkbox"
+						class="w-4 h-4 cursor-pointer"
+						onchange={(e) => {
+							const isChecked = (e.target as any).checked;
+							let tmpList = props.action.deleteList;
+
+							if(isChecked){
+								tmpList.push(amount.id!)
+							} else {
+								tmpList = tmpList.filter(i => i !== amount.id);
+							};
+
+							return props.handleActions({ deleteList: tmpList })
+						}}
+					/>
+				{/if}
     	</li>
     {/each}
 	</ul>

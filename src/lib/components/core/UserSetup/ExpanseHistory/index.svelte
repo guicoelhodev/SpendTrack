@@ -1,7 +1,7 @@
 <script module lang="ts">
 	export type TActions = {
 		action: 'delete' | 'idle',
-		delelteIdList: number[]
+		deleteList: number[]
 	}
 
 	export type THandleActions = (partial: TActions) => void;
@@ -18,10 +18,6 @@
 	import MaterialSymbolsClose from '~icons/material-symbols/close';
 	import MaterialSymbolsCheckRounded from '~icons/material-symbols/check-rounded';
 
-	type TActions = {
-		action: 'delete' | 'idle',
-		delelteIdList: number[]
-	}
 	let showModal = $state(true);
 
 	const expanseAmountService = new ExpanseAmountService();
@@ -40,10 +36,10 @@
 
 	let actions: TActions = $state({
     action: 'idle',
-		delelteIdList: []
+		deleteList: []
 	});
 
-	$inspect(getExpanseKeys())
+	$inspect(actions.deleteList)
 </script>
 
 <button onclick={() => showModal = true } title="View history">
