@@ -2,11 +2,9 @@
 	import SolarLogout2Bold from '~icons/solar/logout-2-bold';
 	import SolarUserBold from '~icons/solar/user-bold';
 
-
 	export type TActions = {
 		showDrawer: boolean
 	};
-
 </script>
 
 <script lang="ts">
@@ -14,11 +12,10 @@
 	import { SessionService } from '$lib/api/application/presentation/SessionService';
 	import UserLoginModal from './UserLoginModal/index.svelte';
 	import { liveQuery } from 'dexie';
+	import { application } from '$lib/stores/application.svelte';
 
 	const sessionService = new SessionService();
-	const session = liveQuery(async() => await sessionService.getSession(1));
-
-	let showUserLoginModal = $state(false)
+	const session = liveQuery(async() => await sessionService.getSession(1) ?? null);
 
 	async function onConnect(user: TUser){
 		try {
@@ -31,7 +28,7 @@
 				nickname: user.nickname
 			})
 
-			showUserLoginModal = false
+			application.showLoginModal = false
 		}catch (error) {
 			console.error((error as Error).message)
 		}
@@ -44,14 +41,15 @@
 			console.error((error as Error).message)
 		}
 
-showUserLoginModal = false
+		application.showLoginModal = false
+		return;
 	}
-
 
 	let isLogged = $derived(() => {
 		if(!$session?.expiresAt) return false
 		return new Date($session?.expiresAt) > new Date(Date.now())
 	})
+
 </script>
 
 
@@ -60,12 +58,12 @@ showUserLoginModal = false
 	data-open={isLogged()}
 >
 
-	{#if showUserLoginModal}
+	{#if application.showLoginModal}
 		<UserLoginModal 
 			isLogged={isLogged()}
 			onDisconnect={onDisconnect}
 			onConnect={onConnect}
-			onCancel={() => showUserLoginModal = false}
+			onCancel={() => application.showLoginModal = false}
 		/>
 	{/if}
 
@@ -82,11 +80,11 @@ showUserLoginModal = false
 	{/if}
 
 	<button
-		onclick={() => showUserLoginModal = !showUserLoginModal}
+		onclick={() => application.showLoginModal = !application.showLoginModal}
 		class="bg-background-primary p-2 rounded-full grid place-content-center"
 		aria-labelledby='logout-btn'
 	>
-	{#if showUserLoginModal}
+	{#if application.showLoginModal}
 		<SolarLogout2Bold />
 	{:else}
 		<SolarUserBold />

@@ -6,6 +6,7 @@
 	import { application } from "$lib/stores/application.svelte";
 	import z from 'zod';
 	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
+	import { SessionService } from "$lib/api/application/presentation/SessionService";
 	
 	type TProps = { onClose: VoidFunction }
 	type TExpanseForm = z.infer<typeof formSchema>;
@@ -21,9 +22,9 @@
 	const categories = liveQuery(() => categoryService.getList());
 	const props: TProps = $props();
 
-
 	const categoryService = new ExpanseCategoryService();
 	const expanseAmountService = new ExpanseAmountService();
+	const sessionService = new SessionService();
 
 	let expanseForm = $state<TExpanseForm>({
 		date: new Intl.DateTimeFormat('en-CA').format(new Date()),
@@ -36,11 +37,14 @@
 	let formErrors: Record<keyof TExpanseForm, string> = $state(defaultError);
 
 	async function onSubmitForm(formData: TExpanseForm){
+		const session = await sessionService.getSession(1);
+
 		await expanseAmountService.add({
 			amount: formData.total,
 			categoryName: formData.categoryName,
 			defaultHexColor: $categories.find(i => i.name === formData.categoryName)!.hexColor,
 			createdAt: new Date(formData.date).toISOString(),
+			userId: session!.userId
 		})
 
 		return props.onClose()
