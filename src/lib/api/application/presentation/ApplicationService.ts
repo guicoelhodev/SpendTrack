@@ -1,12 +1,13 @@
+import type { Application } from "$lib/api/core/models/Application";
 import { makeApplicationFactory, makeApplicationUpdateFactory } from "../factories/applicationFactory";
 
 export class ApplicationService {
 
 	async getApplication(){
-		return makeApplicationFactory()
+		return makeApplicationFactory().execute()
 	}
 
-	async updateApplication(){
-		return makeApplicationUpdateFactory()
+	async updateApplication(data: Partial<Application>){
+		return makeApplicationUpdateFactory().execute(data)
 	}
 }
