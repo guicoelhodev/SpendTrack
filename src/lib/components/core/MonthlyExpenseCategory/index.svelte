@@ -4,12 +4,18 @@
 	import PieChart from "$lib/components/ui/PieChart.svelte";
 	import SolarClockCircleLineDuotone from '~icons/solar/clock-circle-line-duotone';
 	import { liveQuery } from "dexie";
+	import { SessionService } from "$lib/api/application/presentation/SessionService";
 
   const expanseAmountService = new ExpanseAmountService()
 	const expanseCategory = new ExpanseCategoryService();
+	const sessionService = new SessionService();
 
 	const expanseAmountList = liveQuery(async() => {
-		const list = await expanseAmountService.getAmountByCategory('august_2025')
+		const session = await sessionService.getSession(1);
+		if(!session) return [];
+
+		const list = await expanseAmountService
+			.getAmountByCategory('august_2025', session.userId)
 		const categories = await expanseCategory.getList();
 
 		const formattedList = list.map(i => {

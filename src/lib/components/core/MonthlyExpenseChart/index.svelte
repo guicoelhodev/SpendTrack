@@ -3,11 +3,16 @@
 	import BarChart from "$lib/components/ui/BarChart.svelte";
 	import SolarClockCircleLineDuotone from '~icons/solar/clock-circle-line-duotone';
 	import { liveQuery } from "dexie";
+	import { SessionService } from "$lib/api/application/presentation/SessionService";
 
 	const expanseAmountService = new ExpanseAmountService();
+	const sessionService = new SessionService();
 
 	const expanseAmountList= liveQuery(async() => {
-		return await expanseAmountService.getByMonth('august_2025')
+		const session = await sessionService.getSession(1);
+
+		if(!session) return [];
+		return await expanseAmountService.getByMonth('august_2025', session.userId)
 	});
 
 	function getDayFormatted(date: Date){
