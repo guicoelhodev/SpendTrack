@@ -62,7 +62,7 @@
 	title={props.isLogged ? 'Disconnect user' : 'Select a user to sign in'}
 	onClose={props.onCancel}
 >
-	<div class="sm:min-w-[400px]">
+	<div class="sm:max-w-[400px]">
 		{#if props.isLogged}
 			<p>Please sign out first to log in with another profile.</p>
 		{/if}
