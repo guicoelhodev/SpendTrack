@@ -20,7 +20,7 @@
 	import MaterialSymbolsCheckRounded from '~icons/material-symbols/check-rounded';
 	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
 
-	let showModal = $state(true);
+	let showModal = $state(false);
 
 	const expanseAmountService = new ExpanseAmountService();
 	const sessionService = new SessionService();
