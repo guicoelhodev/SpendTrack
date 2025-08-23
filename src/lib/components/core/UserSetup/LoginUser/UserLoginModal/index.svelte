@@ -6,12 +6,12 @@
 </script>
 
 <script lang="ts">
+	import Modal from '$lib/components/ui/Modal.svelte';
 	import CreateUser from "./CreateUser.svelte";
 	import type { TUser } from '$lib/api/core/models/User';
 	import { UserService } from '$lib/api/application/presentation/UserService';
 	import { liveQuery } from 'dexie';
 	import { SessionService } from '$lib/api/application/presentation/SessionService';
-	import Modal from '$lib/components/ui/Modal.svelte';
 
 	const userService = new UserService()
 	const sessionService = new SessionService()
@@ -58,13 +58,20 @@
 	const users = liveQuery(async() => await userService.getAllUsers())
 </script>
 
-<Modal  title='Select a user to sign in' onClose={props.onCancel}>
+<Modal
+	title={props.isLogged ? 'Disconnect user' : 'Select a user to sign in'}
+	onClose={props.onCancel}
+>
 	<div class="min-w-[400px]">
+		{#if props.isLogged}
+			<p>Please sign out first to log in with another profile.</p>
+		{/if}
+
 		{#if !loginActions.createNewUser}
 			<section class="flex flex-col gap-4">
 
-			<ul class="flex flex-col gap-2">
-				{#if users}
+			{#if !props.isLogged}
+				<ul class="flex flex-col gap-2">
 					{#each $users as user}
 						<li class="w-full">
 							<button 
@@ -76,15 +83,15 @@
 							</button>
 						</li>
 					{/each}
-				{/if}
-			</ul>
+				</ul>
 
-			<button
-				onclick={() => handleDrawerActions({ createNewUser: true, user: null })}
-				class="transition-colors text-text-secondary hover:underline hover:text-text-primary"
-			>
-					create new one
-			</button>
+				<button
+					onclick={() => handleDrawerActions({ createNewUser: true, user: null })}
+					class="transition-colors text-text-secondary hover:underline hover:text-text-primary"
+				>
+						create new one
+				</button>
+      {/if}
 			</section>
 
 			<footer class="pt-4">
@@ -103,9 +110,8 @@
 				{/if}
 
 			</footer>
-		{:else}
+		{:else if !props.isLogged}
 			<CreateUser onCreateUser={onCreateUser} />
 		{/if}
 	</div>
-
 </Modal>
