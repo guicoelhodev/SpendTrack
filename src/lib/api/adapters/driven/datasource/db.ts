@@ -3,6 +3,7 @@ import type { ExpanseAmount } from '$lib/api/core/models/ExpanseAmount';
 import type { TExpanseCategory } from '$lib/api/core/models/ExpanseCategory';
 import type { TSession } from '$lib/api/core/models/Session';
 import type { TUser } from '$lib/api/core/models/User';
+import { getMonthIndex } from '$lib/utils/getMonthIndex';
 
 import Dexie, { type EntityTable } from 'dexie';
 
@@ -35,14 +36,15 @@ db.on('populate', async (tx) => {
   ]);
 
 	await tx.table('users').add({ 
-		id: crypto.randomUUID(), name: 'Guilherme Coelho', nickname: 'guicoelhodev' 
+		id: crypto.randomUUID(), name: 'Default User', nickname: 'default_user' 
 	})
 
 	await tx.table('application').add({
     id: 1, 
 		currencyType: 'USD',
 		currencyLocation: 'en-UI',
-		chartBarColor: '#1DAAF0'
+		chartBarColor: '#1DAAF0',
+		monthIndex: getMonthIndex()
 	})
 });
 

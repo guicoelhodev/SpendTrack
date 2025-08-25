@@ -7,6 +7,7 @@
 	import z from 'zod';
 	import { ExpanseAmountService } from "$lib/api/application/presentation/ExpanseAmountService";
 	import { SessionService } from "$lib/api/application/presentation/SessionService";
+	import { ApplicationService } from "$lib/api/application/presentation/ApplicationService";
 	
 	type TProps = { onClose: VoidFunction }
 	type TExpanseForm = z.infer<typeof formSchema>;
@@ -25,6 +26,7 @@
 	const categoryService = new ExpanseCategoryService();
 	const expanseAmountService = new ExpanseAmountService();
 	const sessionService = new SessionService();
+	const applicationService = new ApplicationService();
 
 	let expanseForm = $state<TExpanseForm>({
 		date: new Intl.DateTimeFormat('en-CA').format(new Date()),
@@ -49,6 +51,11 @@
 
 		return props.onClose()
 	}
+
+
+	const applicationDB = liveQuery(async() => 
+		await applicationService.getApplication()
+	)
 </script>
 
 <Modal title='Add new expanse' onClose={props.onClose}>
@@ -133,8 +140,8 @@
 				name="total"
 				bind:value={expanseForm.total}
 				isNegativeAllowed={false}
-				locale={application.currencyLocation}
-				currency={application.currencyType}
+				locale={$applicationDB?.currencyLocation}
+				currency={$applicationDB?.currencyType}
 				inputClasses={{
 					formatted: 'rounded-md p-2 border outline-0 focus:outline-1 text-white placeholder:text-text-secondary w-full'
 				}}

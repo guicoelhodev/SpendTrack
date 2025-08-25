@@ -68,7 +68,7 @@
 		{/if}
 
 		{#if !loginActions.createNewUser}
-			<section class="flex flex-col gap-4 w-[calc(100svw-3rem)]">
+			<section class="flex flex-col gap-4">
 
 			{#if !props.isLogged}
 				<ul class="flex flex-col gap-2">
